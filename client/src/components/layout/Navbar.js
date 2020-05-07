@@ -1,25 +1,28 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div>
       <header>
-        <a className='logo' href=''>
+        <Link to='/' className='logo'>
           Livebrary
-        </a>
+        </Link>
         <nav>
           <ul className='nav__links'>
             <li>
-              <a href=''>Find Performances</a>
+              <Link to='/search'>Find Performances</Link>
             </li>
             <li>
-              <a href=''>Top Performances</a>
+              <Link to='/top'>Top Performances</Link>
             </li>
             <li>
-              <a href=''>Log In</a>
+              <Link to='/login'>
+                <a href=''>Log In</a>
+              </Link>
             </li>
             <li>
-              <a href=''>Register</a>
+              <Link to='/register'>Register</Link>
             </li>
           </ul>
         </nav>

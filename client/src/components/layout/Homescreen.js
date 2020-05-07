@@ -20,6 +20,27 @@ const Homescreen = () => {
           venue='The Fillmore'
           img_url='https://youtube.com'
         />
+
+        <PerformanceCard
+          artist='King Gizzard and the Lizard Wizard'
+          song='Robot Stop'
+          venue='The Fillmore'
+          img_url='https://youtube.com'
+        />
+
+        <PerformanceCard
+          artist='King Gizzard and the Lizard Wizard'
+          song='Robot Stop'
+          venue='The Fillmore'
+          img_url='https://youtube.com'
+        />
+
+        <PerformanceCard
+          artist='King Gizzard and the Lizard Wizard'
+          song='Robot Stop'
+          venue='The Fillmore'
+          img_url='https://youtube.com'
+        />
       </div>
     </div>
   );
