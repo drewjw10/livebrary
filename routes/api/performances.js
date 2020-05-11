@@ -78,8 +78,24 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.get("/", auth, async (req, res) => {
   try {
-    const performances = await Performances.find().sort({ date: -1 });
+    const performances = await Performance.find().sort({ date: -1 });
     res.json(performances);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    GET api/performances/top
+// @desc     Get a list of the top ten performances
+// @access   Public
+
+router.get("/top", async (req, res) => {
+  try {
+    const performances = await Performance.find().sort({ votesCount: 1 });
+    const size = performances.length >= 10 ? 10 : performances.length;
+    const topPerformances = performances.slice(0, size);
+    res.json(topPerformances);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

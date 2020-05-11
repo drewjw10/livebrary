@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Fragment } from "react";
 import PerformanceCard from "./PerformanceCard";
 
 const Homescreen = () => {
   return (
-    <div className='container'>
+    <Fragment>
       <div className='welcome-box'>
         <h2>Welcome to Livebrary</h2>
         <p>
@@ -42,7 +42,7 @@ const Homescreen = () => {
           img_url='https://youtube.com'
         />
       </div>
-    </div>
+    </Fragment>
   );
 };
 

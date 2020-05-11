@@ -17,9 +17,7 @@ const Navbar = () => {
               <Link to='/top'>Top Performances</Link>
             </li>
             <li>
-              <Link to='/login'>
-                <a href=''>Log In</a>
-              </Link>
+              <Link to='/login'>Log In</Link>
             </li>
             <li>
               <Link to='/register'>Register</Link>

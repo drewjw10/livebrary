@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import Homescreen from "./components/layout/Homescreen";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// Redux
+import { Provider } from "react-redux";
+import store from "./store";
+import { loadUser } from "./actions/auth";
+import setAuthToken from "./utils/setAuthToken";
+import TopPerformances from "./components/layout/TopPerformances";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Route exact path='/' component={Homescreen} />
-        <Switch>
-          <Route exact path='/register' component={Register} />
-          <Route exact path='/login' component={Login} />
-        </Switch>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Navbar />
+          <section className='container'>
+            <Route exact path='/' component={Homescreen} />
+            <Switch>
+              <Route exact path='/top' component={TopPerformances} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+            </Switch>
+          </section>
+        </div>
+      </Router>
+    </Provider>
   );
 };
 
