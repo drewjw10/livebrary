@@ -47,6 +47,7 @@ router.post(
 // @access   Private
 
 router.delete("/:id", auth, async (req, res) => {
+  // TODO: delete performance objects associated with song
   try {
     let song = await Song.findById(req.params.id);
     if (!song) {

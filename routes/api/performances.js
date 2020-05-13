@@ -4,6 +4,9 @@ const auth = require("../../middleware/auth");
 const { validationResult, check } = require("express-validator/check");
 
 const Performance = require("../../models/Performance");
+const Song = require("../../models/Song");
+const Artist = require("../../models/Artist");
+const User = require("../../models/User");
 
 // @route    POST api/performances
 // @desc     Create a performance object
@@ -95,7 +98,24 @@ router.get("/top", async (req, res) => {
     const performances = await Performance.find().sort({ votesCount: 1 });
     const size = performances.length >= 10 ? 10 : performances.length;
     const topPerformances = performances.slice(0, size);
-    res.json(topPerformances);
+    let data = [];
+
+    for (let i = 0; i < topPerformances.length; i++) {
+      performance = topPerformances[i];
+      const song = await Song.findById(performance.song.toString());
+      const artist = await Artist.findById(song.artist.toString());
+      const user = await User.findById(performance.user.toString());
+
+      data.push({
+        performance: performance.venue,
+        song: song.name,
+        artist: artist.name,
+        user: user.name,
+      });
+    }
+    res.json({
+      data,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

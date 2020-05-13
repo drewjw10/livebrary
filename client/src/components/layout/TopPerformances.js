@@ -1,35 +1,30 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
+import PerformanceTable from "./PerformanceTable";
 import { getTopPerformances } from "../../actions/performances";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import axios from "axios";
 
-const TopPerformances = ({
-  getTopPerformances,
-  performance: { performances },
-}) => {
+const TopPerformances = () => {
+  let [data, setData] = useState({});
+
   useEffect(() => {
-    getTopPerformances();
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("/api/performances/top");
+        setData(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, []);
+
   return (
     <Fragment>
-      <div className='top-performances'>
-        {performances.map((performance) => (
-          <p>{performance.venue}</p>
-        ))}
-      </div>
+      {data.data && <PerformanceTable performances={data.data} />}
     </Fragment>
   );
 };
 
-TopPerformances.propTypes = {
-  getTopPerformances: PropTypes.func.isRequired,
-  performances: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  performance: state.performance,
-});
-
-export default connect(mapStateToProps, { getTopPerformances })(
-  TopPerformances
-);
+export default TopPerformances;

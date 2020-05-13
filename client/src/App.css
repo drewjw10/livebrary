@@ -82,3 +82,15 @@ header {
   border-color: #ffc600;
   box-shadow: 0 0 1rem;
 }
+
+.performance-table {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.performance-table table,
+th,
+td {
+  color: #edf0f1;
+  border: 1px solid white;
+}
