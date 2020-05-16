@@ -1,11 +1,44 @@
 import axios from "axios";
-import { PERFORMANCE_ERROR } from "./types";
 
-export const getTopPerformances = () => async () => {
+import {
+  GET_TOP_PERFORMANCES_BEGIN,
+  GET_TOP_PERFORMANCES_SUCCESS,
+  GET_TOP_PERFORMANCES_FAILURE,
+  GET_RECENT_PERFORMANCES_BEGIN,
+  GET_RECENT_PERFORMANCES_SUCCESS,
+  GET_RECENT_PERFORMANCES_FAILURE,
+} from "./types";
+
+export const getTopPerformances = () => async (dispatch) => {
   try {
+    dispatch({
+      type: GET_TOP_PERFORMANCES_BEGIN,
+    });
     const res = await axios.get("/api/performances/top");
-    return res.data;
+    dispatch({
+      type: GET_TOP_PERFORMANCES_SUCCESS,
+      payload: res.data,
+    });
   } catch (err) {
-    return err;
+    dispatch({
+      type: GET_TOP_PERFORMANCES_FAILURE,
+    });
+  }
+};
+
+export const getRecentPerformances = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_RECENT_PERFORMANCES_BEGIN,
+    });
+    const res = await axios.get("/api/performances/recent");
+    dispatch({
+      type: GET_RECENT_PERFORMANCES_SUCCESS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_RECENT_PERFORMANCES_FAILURE,
+    });
   }
 };

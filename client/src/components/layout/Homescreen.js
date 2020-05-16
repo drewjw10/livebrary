@@ -1,7 +1,18 @@
-import React, { Fragment } from "react";
-import PerformanceCard from "./PerformanceCard";
+import React, { Fragment, useEffect } from "react";
+import PerformanceCard from "./performance/PerformanceCard";
+import { useSelector, useDispatch } from "react-redux";
+import { getRecentPerformances } from "../../actions/performances";
 
 const Homescreen = () => {
+  const performances = useSelector(
+    (state) => state.performance.recentPerformances.data
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getRecentPerformances());
+  }, []);
+
   return (
     <Fragment>
       <div className='welcome-box'>
@@ -14,33 +25,15 @@ const Homescreen = () => {
       </div>
 
       <div className='perf-boxes'>
-        <PerformanceCard
-          artist='King Gizzard and the Lizard Wizard'
-          song='Robot Stop'
-          venue='The Fillmore'
-          img_url='https://youtube.com'
-        />
-
-        <PerformanceCard
-          artist='King Gizzard and the Lizard Wizard'
-          song='Robot Stop'
-          venue='The Fillmore'
-          img_url='https://youtube.com'
-        />
-
-        <PerformanceCard
-          artist='King Gizzard and the Lizard Wizard'
-          song='Robot Stop'
-          venue='The Fillmore'
-          img_url='https://youtube.com'
-        />
-
-        <PerformanceCard
-          artist='King Gizzard and the Lizard Wizard'
-          song='Robot Stop'
-          venue='The Fillmore'
-          img_url='https://youtube.com'
-        />
+        {performances &&
+          performances.map(({ performance, song, artist, user }) => (
+            <PerformanceCard
+              venue={performance}
+              song={song}
+              artist={artist}
+              user={user}
+            ></PerformanceCard>
+          ))}
       </div>
     </Fragment>
   );

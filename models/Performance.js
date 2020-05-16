@@ -31,6 +31,10 @@ PerformanceSchema = new mongoose.Schema({
       },
     },
   ],
+  date: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = Performance = mongoose.model("Performance", PerformanceSchema);

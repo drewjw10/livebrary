@@ -10,7 +10,9 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-import TopPerformances from "./components/layout/TopPerformances";
+import TopPerformances from "./components/layout/performance/TopPerformances";
+import Search from "./components/layout/Search";
+import CreatePerformance from "./components/layout/performance/CreatePerformance";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,6 +34,12 @@ const App = () => {
               <Route exact path='/top' component={TopPerformances} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
+              <Route exact path='/search' component={Search} />
+              <Route
+                exact
+                path='/create-performance'
+                component={CreatePerformance}
+              />
             </Switch>
           </section>
         </div>

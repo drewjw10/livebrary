@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
-const { validationResult, check } = require("express-validator/check");
+const { validationResult, check } = require("express-validator");
 
 const Performance = require("../../models/Performance");
 const Song = require("../../models/Song");
@@ -40,7 +40,12 @@ router.post(
         return res.status(400).send({ msg: "Song already exists" });
       }
 
-      performance = new Performance({ venue: venue, song: song, link: link });
+      performance = new Performance({
+        venue: venue,
+        song: song,
+        link: link,
+        user: req.user.id,
+      });
       await performance.save();
       res.json(performance);
     } catch (err) {
@@ -97,6 +102,39 @@ router.get("/top", async (req, res) => {
   try {
     const performances = await Performance.find().sort({ votesCount: 1 });
     const size = performances.length >= 10 ? 10 : performances.length;
+    const topPerformances = performances.slice(0, size);
+    let data = [];
+
+    for (let i = 0; i < topPerformances.length; i++) {
+      performance = topPerformances[i];
+      const song = await Song.findById(performance.song.toString());
+      const artist = await Artist.findById(song.artist.toString());
+      const user = await User.findById(performance.user.toString());
+
+      data.push({
+        performance: performance.venue,
+        song: song.name,
+        artist: artist.name,
+        user: user.name,
+      });
+    }
+    res.json({
+      data,
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    GET api/performances/recent
+// @desc     Get a list of the nine most recent performances
+// @access   Public
+
+router.get("/recent", async (req, res) => {
+  try {
+    const performances = await Performance.find().sort({ date: -1 });
+    const size = performances.length >= 9 ? 9 : performances.length;
     const topPerformances = performances.slice(0, size);
     let data = [];
 
