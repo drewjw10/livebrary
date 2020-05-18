@@ -111,11 +111,16 @@ router.get("/top", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
+      const { link, votesCount, date } = performance;
+
       data.push({
         performance: performance.venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
+        link: link,
+        votesCount: votesCount,
+        date: date,
       });
     }
     res.json({
@@ -144,11 +149,16 @@ router.get("/recent", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
+      const { link, votesCount, date } = performance;
+
       data.push({
         performance: performance.venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
+        link: link,
+        votesCount: votesCount,
+        date: date,
       });
     }
     res.json({

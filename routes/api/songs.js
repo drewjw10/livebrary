@@ -3,6 +3,7 @@ const router = express.Router();
 const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Song = require("../../models/Song");
+const Artist = require("../../models/Artist");
 
 // @route    POST api/songs/
 // @desc     Create a song
@@ -21,18 +22,28 @@ router.post(
 
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
+      console.error(errors);
     }
 
     const { name, artist } = req.body;
 
     try {
       let song = await Song.findOne({ name: name });
+      let artistObj = await Artist.findOne({ name: artist });
+
       if (song) {
         return res
           .status(400)
           .json({ errors: [{ msg: "Song already exists" }] });
       }
-      song = new Song({ name: name, artist: artist, user: req.user.id });
+
+      if (!artistObj) {
+        return res
+          .status(400)
+          .json({ errors: [{ msg: "Artist does not exist" }] });
+      }
+
+      song = new Song({ name: name, artist: artistObj, user: req.user.id });
       await song.save();
       res.json(song);
     } catch (err) {
@@ -41,6 +52,20 @@ router.post(
     }
   }
 );
+
+// @route    GET api/songs/:id
+// @desc     Get a song by id
+// @access   Public
+
+router.get("/:id", async (req, res) => {
+  try {
+    const song = await Song.findById(req.params.id);
+    res.json(song);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
+});
 
 // @route    DELETE api/songs/:id
 // @desc     Delete a song

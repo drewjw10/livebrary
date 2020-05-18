@@ -6,6 +6,7 @@ body {
   background-color: #24252a;
   font-family: "Roboto", sans-serif;
   color: #edf0f1;
+  --bright-highlight: #ffc600;
 }
 
 li,
@@ -44,7 +45,7 @@ header {
 }
 
 .nav__links li a:hover {
-  color: #ffc600;
+  color: var(--bright-highlight);
 }
 
 .container {
@@ -82,32 +83,54 @@ header {
 
 .perf-box:hover {
   transform: scale(1.05);
-  border-color: #ffc600;
+  border-color: var(--bright-highlight);
   box-shadow: 0 0 1rem;
 }
 
-.performance-table {
-  margin-top: 10px;
-  width: 100%;
-}
-
-.performance-table table,
-th,
-td {
-  color: #edf0f1;
-  border: 1px solid white;
-}
-
-.create-performance {
+.create-performance,
+.create-song,
+.create-artist {
   display: flex;
   flex-direction: column;
 }
 
-.create-performance input[type="submit"] {
+.create-performance,
+.create-song,
+.create-artist input[type="submit"] {
   margin-top: 5px;
   width: 10%;
 }
 
-.create-performance input {
+.create-performance,
+.create-song,
+.create-artist input {
   width: 30%;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  background-color: darkgrey;
+}
+
+.list-item:hover {
+  transform: scale(1.02);
+  border-color: var(--bright-highlight);
+  box-shadow: 0 0 0.2rem;
+}
+
+.performance-list {
+  margin-top: 10px;
+  position: relative;
+}
+
+.performance-list-song {
+  flex-basis: 50%;
+}
+
+.create-object {
+  border-radius: 10px;
+  color: var(--bright-highlight);
 }

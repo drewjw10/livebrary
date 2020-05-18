@@ -5,6 +5,19 @@ const mongoose = require("mongoose");
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middleware/auth");
 
+// @route    GET api/artists/:id
+// @desc     Get an artist by id
+// @access   Public
+router.get("/:id", async (req, res) => {
+  try {
+    const artist = await Artist.findById(req.params.id);
+    res.json(artist);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route    GET api/artists
 // @desc     Get a list of artists
 // @access   Public

@@ -19,6 +19,7 @@ PerformanceSchema = new mongoose.Schema({
   },
   votesCount: {
     type: Number,
+    default: 0,
   },
   votes: [
     {

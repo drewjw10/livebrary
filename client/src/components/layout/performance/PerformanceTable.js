@@ -3,33 +3,29 @@ import React, { Fragment } from "react";
 const PerformanceTable = (performances) => {
   return (
     <Fragment>
-      <table className='performance-table'>
-        <thead>
-          <tr>
-            <th>Artist</th>
-            <th>Song</th>
-            <th>Venue</th>
-            <th>User</th>
-            <th>Votes</th>
-          </tr>
-        </thead>
-        <tbody>
-          {console.log(performances)}
-          {performances.performances &&
-            performances.performances.map((performance) => (
-              <tr key={performances.performances.indexOf(performance)}>
-                <td>
-                  {performances.performances.indexOf(performance) + 1}{" "}
+      <div className='performance-list'>
+        {console.log(performances)}
+        {performances.performances &&
+          performances.performances.map((performance) => (
+            <a href={performance.link} target='_blank'>
+              <div
+                key={performances.performances.indexOf(performance)}
+                className='list-item'
+              >
+                <div className='performance-list-song'>
+                  {performances.performances.indexOf(performance) + 1}.{" "}
+                  {performance.song}@ {performance.performance}
+                </div>
+                <div className='performance-list-artist'>
                   {performance.artist}
-                </td>
-                <td>{performance.song}</td>
-                <td>{performance.performance}</td>
-                <td>{performance.user}</td>
-                <td>VoteCount</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+                </div>
+                <div className='performance-list-votes'>
+                  {performance.votesCount}
+                </div>
+              </div>
+            </a>
+          ))}
+      </div>
     </Fragment>
   );
 };
