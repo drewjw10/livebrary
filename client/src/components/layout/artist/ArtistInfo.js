@@ -10,10 +10,18 @@ const ArtistInfo = ({ match }) => {
 
   useEffect(() => {
     console.log(params);
-    dispatch(getArtist(params.id));
+    dispatch(getArtist(params.slug));
   }, []);
-
-  return <Fragment>{artist && <p>{artist.name}</p>}</Fragment>;
+  return (
+    <Fragment>
+      {console.log(artist)}
+      {artist && <h2 className='info-header'>{artist.artist.name}</h2>}
+      {artist &&
+        artist.songs.map((song, i) => {
+          return <p key={song + i}>{song.name}</p>;
+        })}
+    </Fragment>
+  );
 };
 
 export default ArtistInfo;

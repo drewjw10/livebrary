@@ -6,6 +6,9 @@ import {
   GET_ARTIST_BEGIN,
   GET_ARTIST_SUCCESS,
   GET_ARTIST_FAILURE,
+  GET_ARTISTLIST_BEGIN,
+  GET_ARTISTLIST_SUCCESS,
+  GET_ARTISTLIST_FAILURE,
 } from "./types";
 
 export const createArtist = (name) => async (dispatch) => {
@@ -37,21 +40,45 @@ export const createArtist = (name) => async (dispatch) => {
   }
 };
 
-export const getArtist = (id) => async (dispatch) => {
+export const getArtist = (slug) => async (dispatch) => {
   try {
-    console.log(`id param: ${id}`);
+    console.log(`id param: ${slug}`);
     dispatch({
       type: GET_ARTIST_BEGIN,
+      loading: true,
     });
-    const res = await axios.get(`/api/artists/${id}`);
+    const res = await axios.get(`/api/artists/${slug}`);
     dispatch({
       type: GET_ARTIST_SUCCESS,
       payload: res.data,
+      loading: false,
     });
   } catch (err) {
     dispatch({
       type: GET_ARTIST_FAILURE,
       payload: err,
+      loading: false,
+    });
+  }
+};
+
+export const getArtistList = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_ARTISTLIST_BEGIN,
+      loading: true,
+    });
+    const res = await axios.get("/api/artists/");
+    dispatch({
+      type: GET_ARTISTLIST_SUCCESS,
+      payload: res.data,
+      loading: false,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ARTISTLIST_FAILURE,
+      payload: err,
+      loading: false,
     });
   }
 };

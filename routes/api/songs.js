@@ -107,4 +107,18 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// @route    GET api/songs/:artist
+// @desc     Get a list of all songs by an artist id
+// @access   Public
+
+router.get("/artist/:id", async (req, res) => {
+  try {
+    const songs = await Song.find({ artist: req.params.id });
+    res.json(songs);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;

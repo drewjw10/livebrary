@@ -17,6 +17,8 @@ import CreateSong from "./components/layout/song/CreateSong";
 import CreateArtist from "./components/layout/artist/CreateArtist";
 import ArtistInfo from "./components/layout/artist/ArtistInfo";
 import SongInfo from "./components/layout/song/SongInfo";
+import PerformanceInfo from "./components/layout/performance/PerformanceInfo";
+import ArtistList from "./components/layout/artist/ArtistList";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -46,8 +48,14 @@ const App = () => {
               />
               <Route exact path='/create-song' component={CreateSong} />
               <Route exact path='/create-artist' component={CreateArtist} />
-              <Route exact path='/artists/:id' component={ArtistInfo} />
+              <Route exact path='/artists/:slug' component={ArtistInfo} />
               <Route exact path='/songs/:id' component={SongInfo} />
+              <Route
+                exact
+                path='/performances/:id'
+                component={PerformanceInfo}
+              />
+              <Route exact path='/artists/' component={ArtistList} />
             </Switch>
           </section>
         </div>

@@ -33,16 +33,16 @@ router.post(
       // Check if performance already exists
       let performance = await Performance.findOne({
         venue: venue,
-        song: song,
+        song: songObj,
         link: link,
       });
       if (performance) {
-        return res.status(400).send({ msg: "Song already exists" });
+        return res.status(400).send({ msg: "Performance already exists" });
       }
 
       performance = new Performance({
         venue: venue,
-        song: song,
+        song: songObj,
         link: link,
         user: req.user.id,
       });
@@ -164,6 +164,20 @@ router.get("/recent", async (req, res) => {
     res.json({
       data,
     });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    GET api/performances/:id
+// @desc     Get a performance based on id
+// @access   Public
+
+router.get("/:id", async (req, res) => {
+  try {
+    const performance = await Performance.findById(req.params.id);
+    res.json(performance);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

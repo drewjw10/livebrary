@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 const Search = () => {
   return (
     <Fragment>
+      <Link to='/artists'>
+        <p>See a list of artists</p>
+      </Link>
       <Link to='/create-artist'>
         <button className='create-object'>Create Artist</button>
       </Link>
