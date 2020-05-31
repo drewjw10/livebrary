@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Song = require("../../models/Song");
 const Artist = require("../../models/Artist");
+const Performance = require("../../models/Performance");
 
 // @route    POST api/songs/
 // @desc     Create a song
@@ -45,7 +46,7 @@ router.post(
 
       song = new Song({ name: name, artist: artistObj, user: req.user.id });
       await song.save();
-      res.json(song);
+      res.json({ song: song, artist_slug: artistObj.slug });
     } catch (err) {
       console.error(err.message);
       res.status(500).json("Server Error");
@@ -107,7 +108,7 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
-// @route    GET api/songs/:artist
+// @route    GET api/songs/artist/:id
 // @desc     Get a list of all songs by an artist id
 // @access   Public
 
@@ -115,6 +116,35 @@ router.get("/artist/:id", async (req, res) => {
   try {
     const songs = await Song.find({ artist: req.params.id });
     res.json(songs);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+// @route    GET api/songs/artist/:artist_slug/:slug
+// @desc     Get a song and its performances by artist slug and song slug
+// @access   Public
+
+router.get("/slug/:artist_slug/:slug", async (req, res) => {
+  try {
+    const artist = await Artist.findOne({ slug: req.params.artist_slug });
+    if (!artist) {
+      return res.status(400).json({ msg: "Artist not found" });
+    }
+    const song = await Song.findOne({
+      artist: artist._id,
+      slug: req.params.slug,
+    });
+    console.log(song);
+    if (!song) {
+      return res.status(400).json({ msg: "Song not found" });
+    }
+    const performances = await Performance.find({ song: song._id });
+    res.json({
+      song: { name: song.name, artist: artist.name },
+      performances: performances,
+    });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

@@ -35,13 +35,13 @@ export const createSong = (name, artist) => async (dispatch) => {
   }
 };
 
-export const getSong = (id) => async (dispatch) => {
+export const getSong = (slug, artist_slug) => async (dispatch) => {
   try {
     dispatch({
       type: GET_SONG_BEGIN,
     });
 
-    const res = await axios.get(`/api/songs/${id}`);
+    const res = await axios.get(`/api/songs/slug/${artist_slug}/${slug}`);
     dispatch({
       type: GET_SONG_SUCCESS,
       payload: res.data,

@@ -14,7 +14,7 @@ const initialState = {
   artistList: null,
   artist: null,
   createdArtist: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 

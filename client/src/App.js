@@ -49,7 +49,11 @@ const App = () => {
               <Route exact path='/create-song' component={CreateSong} />
               <Route exact path='/create-artist' component={CreateArtist} />
               <Route exact path='/artists/:slug' component={ArtistInfo} />
-              <Route exact path='/songs/:id' component={SongInfo} />
+              <Route
+                exact
+                path='/artists/:artist_slug/:slug'
+                component={SongInfo}
+              />
               <Route
                 exact
                 path='/performances/:id'

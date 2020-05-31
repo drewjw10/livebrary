@@ -18,7 +18,7 @@ const initialState = {
   createdPerformance: null,
   topPerformances: [],
   recentPerformances: [],
-  loading: false,
+  loading: true,
   error: null,
 };
 

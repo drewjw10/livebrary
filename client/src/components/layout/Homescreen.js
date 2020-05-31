@@ -2,11 +2,13 @@ import React, { Fragment, useEffect } from "react";
 import PerformanceCard from "./performance/PerformanceCard";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecentPerformances } from "../../actions/performances";
+import Spinner from "./Spinner";
 
 const Homescreen = () => {
   const performances = useSelector(
     (state) => state.performance.recentPerformances.data
   );
+  const loading = useSelector((state) => state.performance.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,17 +25,26 @@ const Homescreen = () => {
           curated list of performances!
         </p>
       </div>
-
+      {loading && (
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Spinner />
+        </div>
+      )}
       <div className='perf-boxes'>
-        {performances &&
-          performances.map(({ performance, song, artist, user }) => (
-            <PerformanceCard
-              venue={performance}
-              song={song}
-              artist={artist}
-              user={user}
-            ></PerformanceCard>
-          ))}
+        {!loading &&
+          performances &&
+          performances.map(
+            ({ performance, song, artist, user, thumbnail, link }) => (
+              <PerformanceCard
+                venue={performance}
+                song={song}
+                artist={artist}
+                user={user}
+                thumbnail={thumbnail}
+                link={link}
+              ></PerformanceCard>
+            )
+          )}
       </div>
     </Fragment>
   );

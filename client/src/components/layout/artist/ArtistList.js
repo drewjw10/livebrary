@@ -15,12 +15,17 @@ const ArtistList = () => {
     <Fragment>
       <h2>Artists</h2>
       {artistList &&
-        artistList.map((artist, i) => {
-          return (
-            <p key={artist + i}>
-              <Link to={`/artists/${artist.slug}`}>{artist.name}</Link>
-            </p>
-          );
+        Object.keys(artistList).map((letter, i) => {
+          return artistList[letter].map((artist, j) => {
+            return (
+              <p key={artist + j}>
+                {j === 0 ? <h3>{letter}</h3> : ""}
+                <Link to={`/artists/${artist.slug}`} className='list-item-link'>
+                  {artist.name}
+                </Link>
+              </p>
+            );
+          });
         })}
     </Fragment>
   );

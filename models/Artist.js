@@ -16,7 +16,6 @@ ArtistSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true,
   },
 });
 
@@ -37,4 +36,4 @@ function slugify(name) {
     .replace(/-+$/, ""); // Trim - from end of text
 }
 
-module.exports = Artist = mongoose.model("Artist", ArtistSchema);
+module.exports = Artist = mongoose.model("artist", ArtistSchema);

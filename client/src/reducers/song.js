@@ -10,7 +10,7 @@ import {
 const initialState = {
   song: null,
   createdSong: null,
-  loading: false,
+  loading: true,
   error: null,
 };
 

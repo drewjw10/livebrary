@@ -19,7 +19,6 @@ PerformanceSchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String,
-    required: true,
   },
   votesCount: {
     type: Number,
@@ -46,8 +45,8 @@ PerformanceSchema.pre("save", function (next) {
   // assuming YouTube link is in correct format https://www.youtube.com/watch?v=MI_XU1iKRRc
   this.thumbnail = `http://i3.ytimg.com/vi/${
     this.link.split("=")[1]
-  }/maxresdefault.jpg`;
+  }/hqdefault.jpg`;
   next();
 });
 
-module.exports = Performance = mongoose.model("Performance", PerformanceSchema);
+module.exports = Performance = mongoose.model("performance", PerformanceSchema);

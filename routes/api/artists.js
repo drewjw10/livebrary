@@ -11,7 +11,9 @@ const auth = require("../../middleware/auth");
 // @access   Public
 router.get("/:slug", async (req, res) => {
   try {
-    const artist = await Artist.findOne({ slug: req.params.slug });
+    const artist = await Artist.findOne({
+      slug: req.params.slug,
+    });
     const songs = await Song.find({ artist: artist._id });
     res.json({ artist: artist, songs: songs });
   } catch (err) {
@@ -39,7 +41,15 @@ router.get("/name/:id", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const artists = await Artist.find().populate("user", ["name", "avatar"]);
-    res.json(artists);
+    const alphabeticalArtists = {};
+    for (let artist of artists) {
+      let firstChar = artist.name.toUpperCase()[0];
+      if (alphabeticalArtists[firstChar])
+        alphabeticalArtists[firstChar].push(artist);
+      else alphabeticalArtists[firstChar] = [artist];
+    }
+    console.log(alphabeticalArtists);
+    res.json(alphabeticalArtists);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

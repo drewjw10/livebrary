@@ -27,7 +27,11 @@ const CreateSong = () => {
   };
 
   if (createdSong) {
-    return <Redirect to={`/songs/${createdSong._id}`} />;
+    return (
+      <Redirect
+        to={`/artists/${createdSong.artist_slug}/${createdSong.song.slug}`}
+      />
+    );
   }
 
   return (

@@ -15,7 +15,6 @@ const SongSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-    required: true,
   },
 });
 
@@ -36,4 +35,4 @@ function slugify(name) {
     .replace(/-+$/, ""); // Trim - from end of text
 }
 
-module.exports = Song = mongoose.model("Song", SongSchema);
+module.exports = Song = mongoose.model("song", SongSchema);

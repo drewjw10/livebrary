@@ -70,21 +70,41 @@ header {
 }
 
 .perf-box {
+  height: 19rem;
+  min-width: 21rem;
   flex-basis: 25%;
-  border: 4px solid whitesmoke;
+  border: 4px solid black;
   border-radius: 10px;
   margin-top: 1rem;
   margin-left: 1.5rem;
   margin-right: 1.5rem;
   transition: all 0.1s ease;
   background-color: lightgrey;
-  color: black;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
 }
 
 .perf-box:hover {
-  transform: scale(1.05);
-  border-color: var(--bright-highlight);
-  box-shadow: 0 0 1rem;
+  box-shadow: 0 0 0.5rem;
+}
+
+.perf-box-body {
+  overflow: hidden;
+  border-radius: 2%;
+}
+
+.perf-box img {
+  width: 100%;
+  margin: -10% 0;
+}
+
+.perf-box-header {
+  color: black;
+}
+
+.perf-box-body {
+  color: black;
 }
 
 .create-performance,
@@ -108,6 +128,7 @@ header {
 }
 
 .list-item {
+  margin-top: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -116,9 +137,7 @@ header {
 }
 
 .list-item:hover {
-  transform: scale(1.02);
-  border-color: var(--bright-highlight);
-  box-shadow: 0 0 0.2rem;
+  box-shadow: 0 0 0.5rem;
 }
 
 .performance-list {
@@ -133,4 +152,61 @@ header {
 .create-object {
   border-radius: 10px;
   color: var(--bright-highlight);
+}
+
+.perf-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.perf-list-item {
+  margin-top: 5px;
+  width: 80%;
+  height: 10rem;
+  border: 5px solid black;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.perf-list-item:hover {
+  box-shadow: 0 0 0.2rem;
+}
+
+.perf-list-thumbnail {
+  width: 20%;
+  margin: -3% 0;
+  border-radius: 10px;
+}
+
+.top-perf-table-body {
+  margin-left: 5px;
+  flex-basis: 60%;
+  align-content: justify;
+  justify-content: center;
+}
+
+.list-item-link:hover {
+  text-decoration: underline;
+  color: var(--bright-highlight);
+}
+
+.top-perf-table-votes {
+  display: flex;
+  color: gray;
+  align-self: center;
+  flex-direction: column;
+}
+
+.top-perf-table-votes img {
+  padding-right: 10px;
+  padding-left: 10px;
+  height: 40px;
+  width: 40px;
+  filter: grayscale();
+}
+
+.top-perf-table-votes img:hover {
+  filter: none;
 }

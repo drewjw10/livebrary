@@ -23,7 +23,7 @@ const CreateArtist = () => {
   };
 
   if (createdArtist) {
-    return <Redirect to={`/artists/${createdArtist._id}`} />;
+    return <Redirect to={`/artists/${createdArtist.slug}`} />;
   }
 
   return (

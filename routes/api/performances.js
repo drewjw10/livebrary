@@ -27,10 +27,14 @@ router.post(
       return res.status(400).json({ errors: errors.json() });
     }
 
-    const { venue, song, link } = req.body;
+    const { venue, song, artist, link } = req.body;
 
     try {
       // Check if performance already exists
+
+      const artistObj = await Artist.findOne({ name: artist });
+      const songObj = await Song.findOne({ name: song, artist: artistObj._id });
+
       let performance = await Performance.findOne({
         venue: venue,
         song: songObj,
@@ -42,12 +46,12 @@ router.post(
 
       performance = new Performance({
         venue: venue,
-        song: songObj,
+        song: songObj._id,
         link: link,
         user: req.user.id,
       });
       await performance.save();
-      res.json(performance);
+      res.json({ song_slug: songObj.slug, artist_slug: artistObj.slug });
     } catch (err) {
       console.error(err.message);
       res.status(500).json("Server Error");
@@ -111,14 +115,15 @@ router.get("/top", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
-      const { link, votesCount, date } = performance;
+      const { link, votesCount, date, thumbnail } = performance;
 
       data.push({
-        performance: performance.venue,
+        venue: performance.venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
         link: link,
+        thumbnail: thumbnail,
         votesCount: votesCount,
         date: date,
       });
@@ -149,7 +154,7 @@ router.get("/recent", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
-      const { link, votesCount, date } = performance;
+      const { link, votesCount, date, thumbnail } = performance;
 
       data.push({
         performance: performance.venue,
@@ -159,6 +164,7 @@ router.get("/recent", async (req, res) => {
         link: link,
         votesCount: votesCount,
         date: date,
+        thumbnail: thumbnail,
       });
     }
     res.json({
