@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createPerformance } from "../../../actions/performances";
+import { getArtistList } from "../../../actions/artist";
 import { Redirect } from "react-router-dom";
 
 const CreatePerformance = () => {
@@ -16,6 +17,10 @@ const CreatePerformance = () => {
   const createdPerformance = useSelector(
     (state) => state.performance.createdPerformance
   );
+
+  const artistList = useSelector((state) => state.artist.artistList);
+  const loading = useSelector((state) => state.artist.loading);
+
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -27,6 +32,10 @@ const CreatePerformance = () => {
     dispatch(createPerformance(song, artist, venue, link));
   };
 
+  useEffect(() => {
+    dispatch(getArtistList());
+  }, []);
+
   if (createdPerformance) {
     return (
       <Redirect
@@ -37,6 +46,15 @@ const CreatePerformance = () => {
 
   return (
     <form className='create-performance' onSubmit={(e) => onSubmit(e)}>
+      <label>Artist List</label>
+      <select name='artist-list'>
+        {!loading &&
+          Object.keys(artistList).map((letter) => {
+            return artistList[letter].map((artist) => {
+              return <option key={artist.name}>{artist.name}</option>;
+            });
+          })}
+      </select>
       <label>Song name: </label>
       <input
         type='text'

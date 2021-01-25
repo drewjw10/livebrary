@@ -1,10 +1,18 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSong } from "../../../actions/song";
+import { getPerformances } from "../../../actions/performances";
 import Spinner from "../Spinner";
+import TopPerformanceTable from "../performance/TopPerformanceTable";
+import { Breadcrumbs } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 const SongInfo = ({ match }) => {
+  const user = useSelector((state) => state.auth.user);
   const song = useSelector((state) => state.song.song);
+  const performances = useSelector(
+    (state) => state.performance.performances.data
+  );
   const loading = useSelector((state) => state.song.loading);
   const dispatch = useDispatch();
 
@@ -12,35 +20,27 @@ const SongInfo = ({ match }) => {
 
   useEffect(() => {
     dispatch(getSong(params.slug, params.artist_slug));
+    dispatch(getPerformances(user, params.slug));
   }, []);
 
   return (
     <Fragment>
-      {loading && <Spinner />}
       {song && (
-        <p>
-          {song.song.name} - {song.song.artist}
-        </p>
+        <div className='breadcrumb'>
+          <Breadcrumbs aria-label='breadcrumb'>
+            <Link color='inherit' href='/'>
+              {song.song.artist}
+            </Link>
+            <Link color='inherit' href='/getting-started/installation/'>
+              {song.song.name}
+            </Link>
+          </Breadcrumbs>
+        </div>
       )}
 
-      <div className='perf-list'>
-        {song &&
-          song.performances.map((performance, i) => {
-            return (
-              <div className='perf-list-item'>
-                <img src={performance.thumbnail} />
-                <a
-                  key={performance.venue + i}
-                  href={performance.link}
-                  target='_new'
-                  className='list-item-link'
-                >
-                  {performance.venue}
-                </a>
-              </div>
-            );
-          })}
-      </div>
+      {loading && <Spinner />}
+
+      {performances && <TopPerformanceTable performances={performances} />}
     </Fragment>
   );
 };

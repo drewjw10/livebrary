@@ -16,6 +16,14 @@ button {
   text-decoration: none;
 }
 
+a {
+  transition: all 0.3s ease 0s;
+}
+
+a:hover {
+  color: #ffc600;
+}
+
 header {
   display: flex;
   justify-content: flex-end;

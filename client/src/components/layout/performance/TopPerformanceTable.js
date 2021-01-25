@@ -1,9 +1,13 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import smiley from "./smiley.png";
 import frowny from "./frowny.png";
+import VoteBlock from "./VoteBlock";
 
 const TopPerformanceTable = (performances) => {
-  console.log(performances.performances);
+  const [performanceVotes, setPerformanceVotes] = useState(
+    performances.performances.map((performance) => performance.votesCount)
+  );
+
   return (
     <Fragment>
       <div className='perf-list'>
@@ -31,9 +35,12 @@ const TopPerformanceTable = (performances) => {
                   <p>@ {performance.venue}</p>
                 </div>
                 <div className='top-perf-table-votes'>
-                  <img src={smiley} />
-                  <p> {performance.votesCount} Votes</p>
-                  <img src={frowny} />
+                  <VoteBlock
+                    performance={performance}
+                    index={i}
+                    performanceVotes={performanceVotes}
+                    setPerformanceVotes={setPerformanceVotes}
+                  />
                 </div>
               </div>
             );

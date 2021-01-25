@@ -136,11 +136,12 @@ router.get("/slug/:artist_slug/:slug", async (req, res) => {
       artist: artist._id,
       slug: req.params.slug,
     });
-    console.log(song);
     if (!song) {
       return res.status(400).json({ msg: "Song not found" });
     }
-    const performances = await Performance.find({ song: song._id });
+    const performances = await Performance.find({ song: song._id }).sort({
+      date: -1,
+    });
     res.json({
       song: { name: song.name, artist: artist.name },
       performances: performances,

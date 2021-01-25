@@ -6,19 +6,19 @@ import Spinner from "../Spinner";
 
 const TopPerformances = () => {
   const performances = useSelector(
-    (state) => state.performance.topPerformances.data
+    (state) => state.performance.performances.data
   );
   const loading = useSelector((state) => state.performance.loading);
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getTopPerformances());
+    dispatch(getTopPerformances(user));
   }, []);
 
   return (
     <Fragment>
       {loading && <Spinner />}
-      {console.log(performances)}
       {performances && <TopPerformanceTable performances={performances} />}
     </Fragment>
   );

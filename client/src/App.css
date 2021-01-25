@@ -54,7 +54,7 @@ header {
 }
 
 .welcome-box {
-  margin: 10px 10% 0 10%;
+  margin: 10px 10% 5% 10%;
   padding: 0 5px;
   justify-content: center;
   background-color: lightgrey;
@@ -70,41 +70,28 @@ header {
 }
 
 .perf-box {
-  height: 19rem;
-  min-width: 21rem;
-  flex-basis: 25%;
-  border: 4px solid black;
-  border-radius: 10px;
-  margin-top: 1rem;
-  margin-left: 1.5rem;
-  margin-right: 1.5rem;
-  transition: all 0.1s ease;
-  background-color: lightgrey;
-  background-size: cover;
   display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
 }
 
-.perf-box:hover {
+.perf-box-body {
+  display: flex;
+  padding-left: 10px;
+}
+
+.thumbnail-container {
+  display: flex;
+}
+
+.thumbnail-container img {
+  width: 480px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.thumbnail-container img:hover {
   box-shadow: 0 0 0.5rem;
-}
-
-.perf-box-body {
-  overflow: hidden;
-  border-radius: 2%;
-}
-
-.perf-box img {
-  width: 100%;
-  margin: -10% 0;
-}
-
-.perf-box-header {
-  color: black;
-}
-
-.perf-box-body {
-  color: black;
 }
 
 .create-performance,
@@ -160,14 +147,11 @@ header {
 }
 
 .perf-list-item {
-  margin-top: 5px;
+  margin-top: 10px;
   width: 80%;
-  height: 10rem;
-  border: 5px solid black;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
-  overflow: hidden;
 }
 
 .perf-list-item:hover {
@@ -175,9 +159,10 @@ header {
 }
 
 .perf-list-thumbnail {
-  width: 20%;
-  margin: -3% 0;
-  border-radius: 10px;
+  width: 480px;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 15px;
 }
 
 .top-perf-table-body {
@@ -209,4 +194,36 @@ header {
 
 .top-perf-table-votes img:hover {
   filter: none;
+}
+
+.search-box {
+  height: 150px;
+  width: 30%;
+}
+
+.search-results {
+  width: 300px;
+}
+
+.search-result {
+  color: #ffc600;
+  text-decoration: underline;
+}
+
+a {
+  transition: all 0.1s ease 0s;
+}
+
+a:hover {
+  color: var(--bright-highlight);
+}
+
+.breadcrumb {
+  margin-top: 10px;
+  font-size: 40px;
+}
+
+.search-input {
+  width: 40%;
+  height: 30px;
 }

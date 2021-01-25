@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
+
 import { Link } from "react-router-dom";
 
-const Search = () => {
+const Submit = () => {
   return (
-    <Fragment>
-      <Link to='/artists'>
-        <p>See a list of artists</p>
-      </Link>
+    <div>
+      <h2>Submit a new artist, song, or performance.</h2>
+
       <Link to='/create-artist'>
         <button className='create-object'>Create Artist</button>
       </Link>
@@ -16,8 +16,8 @@ const Search = () => {
       <Link to='/create-performance'>
         <button className='create-object'>Create Performance</button>
       </Link>
-    </Fragment>
+    </div>
   );
 };
 
-export default Search;
+export default Submit;

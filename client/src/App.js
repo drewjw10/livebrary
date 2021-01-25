@@ -4,14 +4,19 @@ import Navbar from "./components/layout/Navbar";
 import Homescreen from "./components/layout/Homescreen";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
 import TopPerformances from "./components/layout/performance/TopPerformances";
-import Search from "./components/layout/Search";
+import Search from "./components/layout/shared/Search";
 import CreatePerformance from "./components/layout/performance/CreatePerformance";
 import CreateSong from "./components/layout/song/CreateSong";
 import CreateArtist from "./components/layout/artist/CreateArtist";
@@ -19,6 +24,8 @@ import ArtistInfo from "./components/layout/artist/ArtistInfo";
 import SongInfo from "./components/layout/song/SongInfo";
 import PerformanceInfo from "./components/layout/performance/PerformanceInfo";
 import ArtistList from "./components/layout/artist/ArtistList";
+import Submit from "./components/layout/shared/Submit";
+import Logout from "./components/auth/Logout";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -60,6 +67,9 @@ const App = () => {
                 component={PerformanceInfo}
               />
               <Route exact path='/artists/' component={ArtistList} />
+              <Route exact path='/submit/' component={Submit} />
+              <Route exact path='/logout/' component={Logout} />
+              <Redirect to='/' />
             </Switch>
           </section>
         </div>

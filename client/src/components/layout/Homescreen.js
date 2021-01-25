@@ -1,18 +1,25 @@
 import React, { Fragment, useEffect } from "react";
 import PerformanceCard from "./performance/PerformanceCard";
 import { useSelector, useDispatch } from "react-redux";
-import { getRecentPerformances } from "../../actions/performances";
+import {
+  getRecentPerformances,
+  clearPerformanceState,
+} from "../../actions/performances";
 import Spinner from "./Spinner";
 
 const Homescreen = () => {
   const performances = useSelector(
-    (state) => state.performance.recentPerformances.data
+    (state) => state.performance.performances.data
   );
   const loading = useSelector((state) => state.performance.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getRecentPerformances());
+
+    return () => {
+      dispatch(clearPerformanceState());
+    };
   }, []);
 
   return (
@@ -30,6 +37,7 @@ const Homescreen = () => {
           <Spinner />
         </div>
       )}
+      {!loading && <h3>Fresh performances:</h3>}
       <div className='perf-boxes'>
         {!loading &&
           performances &&

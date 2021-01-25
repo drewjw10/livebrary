@@ -11,14 +11,27 @@ import {
   CREATE_PERFORMANCE_BEGIN,
   CREATE_PERFORMANCE_SUCCESS,
   CREATE_PERFORMANCE_FAILURE,
+  VOTE_PERFORMANCE_BEGIN,
+  VOTE_PERFORMANCE_SUCCESS,
+  VOTE_PERFORMANCE_FAILURE,
+  CLEAR_PERFORMANCE_BEGIN,
+  CLEAR_PERFORMANCE_SUCCESS,
+  CLEAR_PERFORMANCE_FAILURE,
+  GET_PERFORMANCES_BEGIN,
+  GET_PERFORMANCES_SUCCESS,
+  GET_PERFORMANCES_FAILURE,
+  GET_OBJECTS_BEGIN,
+  GET_OBJECTS_SUCCESS,
+  GET_OBJECTS_FAILURE,
+  CLEAR_SEARCH,
 } from "../actions/types";
 
 const initialState = {
   performance: null,
   createdPerformance: null,
-  topPerformances: [],
-  recentPerformances: [],
-  loading: true,
+  performances: [],
+  search: null,
+  loading: false,
   error: null,
 };
 
@@ -36,7 +49,7 @@ export default function (state = initialState, action) {
     case GET_TOP_PERFORMANCES_SUCCESS:
       return {
         ...state,
-        topPerformances: payload,
+        performances: payload,
         loading: false,
       };
 
@@ -57,7 +70,7 @@ export default function (state = initialState, action) {
     case GET_RECENT_PERFORMANCES_SUCCESS:
       return {
         ...state,
-        recentPerformances: payload,
+        performances: payload,
         loading: false,
       };
 
@@ -66,7 +79,7 @@ export default function (state = initialState, action) {
         ...state,
         error: payload.error,
         loading: false,
-        recentPerformances: [],
+        performances: [],
       };
     case CREATE_PERFORMANCE_BEGIN:
       return {
@@ -110,6 +123,82 @@ export default function (state = initialState, action) {
         loading: false,
         performance: null,
       };
+    case VOTE_PERFORMANCE_BEGIN:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case VOTE_PERFORMANCE_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case VOTE_PERFORMANCE_FAILURE:
+      return {
+        ...state,
+        error: payload.error,
+        performance: null,
+      };
+    case CLEAR_PERFORMANCE_BEGIN:
+      return {
+        ...state,
+        error: null,
+      };
+
+    case CLEAR_PERFORMANCE_SUCCESS:
+      return initialState;
+
+    case GET_PERFORMANCES_BEGIN:
+      return {
+        ...state,
+        error: null,
+        loading: true,
+      };
+
+    case GET_PERFORMANCES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        performances: payload,
+      };
+
+    case GET_PERFORMANCES_FAILURE:
+      return {
+        ...state,
+        error: payload.error,
+        loading: false,
+        performances: null,
+      };
+
+    case GET_OBJECTS_BEGIN:
+      return {
+        ...state,
+        error: null,
+        loading: true,
+      };
+
+    case GET_OBJECTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        search: payload,
+      };
+
+    case GET_OBJECTS_FAILURE:
+      return {
+        ...state,
+        error: payload.error,
+        loading: false,
+        search: null,
+      };
+
+    case CLEAR_SEARCH:
+      return {
+        ...state,
+        search: null,
+      };
+
     default:
       return state;
   }
