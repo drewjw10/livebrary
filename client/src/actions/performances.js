@@ -72,20 +72,18 @@ export const createPerformance = (song, artist, venue, link) => async (
   }
 };
 
-export const getTopPerformances = (user) => async (dispatch) => {
+export const getTopPerformances = () => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ user: user });
-
   try {
     dispatch({
       type: GET_TOP_PERFORMANCES_BEGIN,
     });
-    const res = await axios.get("/api/performances/top", body, config);
+    const res = await axios.get("/api/performances/top", config);
     dispatch({
       type: GET_TOP_PERFORMANCES_SUCCESS,
       payload: res.data,

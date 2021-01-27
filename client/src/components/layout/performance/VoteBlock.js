@@ -8,12 +8,14 @@ import Spinner from "../Spinner";
 const VoteBlock = (props) => {
   let { performance, index, performanceVotes, setPerformanceVotes } = props;
 
+  const [userVote, setUserVote] = useState(performance.userVote);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
   return (
     <Fragment>
       <img
+        id='upvote'
         src={smiley}
         onClick={(e) =>
           vote(
@@ -24,13 +26,16 @@ const VoteBlock = (props) => {
             dispatch,
             index,
             performanceVotes,
-            setPerformanceVotes
+            setPerformanceVotes,
+            setUserVote
           )
         }
+        className={userVote === 1 ? "voted" : ""}
       />
       <p> {performanceVotes[index]} Votes</p>
 
       <img
+        id='downvote'
         src={frowny}
         onClick={(e) =>
           vote(
@@ -41,9 +46,11 @@ const VoteBlock = (props) => {
             dispatch,
             index,
             performanceVotes,
-            setPerformanceVotes
+            setPerformanceVotes,
+            setUserVote
           )
         }
+        className={userVote === -1 ? "voted" : ""}
       />
     </Fragment>
   );
@@ -57,23 +64,39 @@ const vote = (
   dispatch,
   index,
   performanceVotes,
-  setPerformanceVotes
+  setPerformanceVotes,
+  setUserVote
 ) => {
   e.preventDefault();
   if (isAuthenticated) {
     let voteValue = 0;
     switch (performance.userVote) {
       case -1:
-        if (voteType === 1 || voteType === 0) voteValue = -1;
-        else if (voteType === -1) voteValue = 0;
+        if (voteType === 1) {
+          voteValue = -1;
+          setUserVote(-1);
+        } else if (voteType === 0) {
+          voteValue = -1;
+          setUserVote(0);
+        } else if (voteType === -1) {
+          voteValue = 0;
+          setUserVote(0);
+        }
       case 1:
-        if (voteType === -1 || voteType === 0) voteValue = 1;
-        else if (voteType === 1) voteValue = 0;
+        if (voteType === -1) {
+          voteValue = 1;
+          setUserVote(1);
+        } else if (voteType === 0) {
+          voteValue = 1;
+          setUserVote(1);
+        } else if (voteType === 1) {
+          voteValue = 0;
+          setUserVote(0);
+        }
       case 0:
         voteValue = voteType;
+        setUserVote(voteType);
     }
-    console.log(`User vote: ${performance.userVote}`);
-    console.log(voteValue);
     setPerformanceVotes([
       ...performanceVotes.slice(0, index),
       voteValue,
@@ -81,6 +104,7 @@ const vote = (
     ]);
     dispatch(votePerformance(performance.id, voteValue, index));
   }
+
   // Tell user to log in if not authenticated
 };
 

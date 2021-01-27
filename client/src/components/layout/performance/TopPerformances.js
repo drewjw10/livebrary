@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner";
 
 const TopPerformances = () => {
-  const performances = useSelector(
-    (state) => state.performance.performances.data
+  const performanceList = useSelector(
+    (state) => state.performance.performanceList.data
   );
   const loading = useSelector((state) => state.performance.loading);
   const user = useSelector((state) => state.auth.user);
@@ -19,7 +19,9 @@ const TopPerformances = () => {
   return (
     <Fragment>
       {loading && <Spinner />}
-      {performances && <TopPerformanceTable performances={performances} />}
+      {performanceList && (
+        <TopPerformanceTable performanceList={performanceList} />
+      )}
     </Fragment>
   );
 };

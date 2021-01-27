@@ -29,7 +29,7 @@ import {
 const initialState = {
   performance: null,
   createdPerformance: null,
-  performances: [],
+  performanceList: [],
   search: null,
   loading: false,
   error: null,
@@ -49,7 +49,7 @@ export default function (state = initialState, action) {
     case GET_TOP_PERFORMANCES_SUCCESS:
       return {
         ...state,
-        performances: payload,
+        performanceList: payload,
         loading: false,
       };
 
@@ -58,7 +58,7 @@ export default function (state = initialState, action) {
         ...state,
         error: payload.error,
         loading: false,
-        topPerformances: [],
+        performanceList: [],
       };
     case GET_RECENT_PERFORMANCES_BEGIN:
       return {
@@ -70,7 +70,7 @@ export default function (state = initialState, action) {
     case GET_RECENT_PERFORMANCES_SUCCESS:
       return {
         ...state,
-        performances: payload,
+        performanceList: payload,
         loading: false,
       };
 
@@ -79,7 +79,7 @@ export default function (state = initialState, action) {
         ...state,
         error: payload.error,
         loading: false,
-        performances: [],
+        performanceList: [],
       };
     case CREATE_PERFORMANCE_BEGIN:
       return {
@@ -160,7 +160,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        performances: payload,
+        performanceList: payload,
       };
 
     case GET_PERFORMANCES_FAILURE:
@@ -168,7 +168,7 @@ export default function (state = initialState, action) {
         ...state,
         error: payload.error,
         loading: false,
-        performances: null,
+        performanceList: null,
       };
 
     case GET_OBJECTS_BEGIN:

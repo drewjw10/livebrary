@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
 
 const PerformanceTable = (performances) => {
-  console.log(performances.performances);
+  const { performances } = performances;
   return (
     <Fragment>
       <div className='perf-list'>
         {performances &&
-          performances.performances.map((performance, i) => {
+          performances.map((performance, i) => {
             return (
               <div className='perf-list-item'>
                 <img src={performance.thumbnail} />

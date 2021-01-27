@@ -188,11 +188,15 @@ header {
   padding-right: 10px;
   padding-left: 10px;
   height: 40px;
-  width: 40px;
+  width: 60px;
   filter: grayscale();
 }
 
 .top-perf-table-votes img:hover {
+  filter: none;
+}
+
+.top-perf-table-votes .voted {
   filter: none;
 }
 
@@ -219,11 +223,41 @@ a:hover {
 }
 
 .breadcrumb {
+  display: flex;
   margin-top: 10px;
   font-size: 40px;
+}
+
+.breadcrumb-path {
+  flex-basis: 70%;
+}
+
+.breadcrumb button {
+  align-content: right;
+  flex-basis: 10%;
+  background-color: rgba(0, 140, 255, 0.83);
+  border: 2px solid;
+  border-radius: 7px;
 }
 
 .search-input {
   width: 40%;
   height: 30px;
+}
+
+.artist-header {
+  display: flex;
+}
+
+.artist-header-text {
+  flex-basis: 70%;
+}
+
+.artist-header button {
+  margin-top: 10px;
+  align-content: right;
+  flex-basis: 10%;
+  background-color: rgba(0, 140, 255, 0.83);
+  border: 2px solid;
+  border-radius: 7px;
 }

@@ -24,7 +24,6 @@ import ArtistInfo from "./components/layout/artist/ArtistInfo";
 import SongInfo from "./components/layout/song/SongInfo";
 import PerformanceInfo from "./components/layout/performance/PerformanceInfo";
 import ArtistList from "./components/layout/artist/ArtistList";
-import Submit from "./components/layout/shared/Submit";
 import Logout from "./components/auth/Logout";
 
 if (localStorage.token) {
@@ -67,7 +66,6 @@ const App = () => {
                 component={PerformanceInfo}
               />
               <Route exact path='/artists/' component={ArtistList} />
-              <Route exact path='/submit/' component={Submit} />
               <Route exact path='/logout/' component={Logout} />
               <Redirect to='/' />
             </Switch>

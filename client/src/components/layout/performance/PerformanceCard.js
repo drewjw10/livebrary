@@ -2,7 +2,6 @@ import React from "react";
 import { url } from "gravatar";
 
 const PerformanceCard = (props) => {
-  console.log(props);
   return (
     <div className='perf-box'>
       <div className='thumbnail-container'>

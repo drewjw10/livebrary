@@ -1,5 +1,0 @@
-fix clear state actions so they don't return initialState, just clear the specific portion of the state object
-make it so <Link> tags are yellow when hovered over (search results).
-1. Fix the login functionality - fixed login not working, now need to make it so reload doesn't destroy local storage token
-2. Add clear state actions for every view that utilizes state
-3. Remove the votes field from the User schema and create a new schema associated with a user and a performance to enhance lookup speed

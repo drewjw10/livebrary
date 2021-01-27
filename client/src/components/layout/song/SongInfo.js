@@ -10,8 +10,8 @@ import { Link } from "react-router-dom";
 const SongInfo = ({ match }) => {
   const user = useSelector((state) => state.auth.user);
   const song = useSelector((state) => state.song.song);
-  const performances = useSelector(
-    (state) => state.performance.performances.data
+  const performanceList = useSelector(
+    (state) => state.performance.performanceList.data
   );
   const loading = useSelector((state) => state.song.loading);
   const dispatch = useDispatch();
@@ -27,20 +27,30 @@ const SongInfo = ({ match }) => {
     <Fragment>
       {song && (
         <div className='breadcrumb'>
-          <Breadcrumbs aria-label='breadcrumb'>
-            <Link color='inherit' href='/'>
-              {song.song.artist}
-            </Link>
-            <Link color='inherit' href='/getting-started/installation/'>
-              {song.song.name}
-            </Link>
-          </Breadcrumbs>
+          <div className='breadcrumb-path'>
+            <Breadcrumbs aria-label='breadcrumb'>
+              <Link color='inherit' href='/'>
+                {song.song.artist}
+              </Link>
+              <Link color='inherit' href='/getting-started/installation/'>
+                {song.song.name}
+              </Link>
+            </Breadcrumbs>
+          </div>
+
+          <Link to='/create-performance'>
+            <button type='button'>Submit New Performance</button>
+          </Link>
         </div>
       )}
 
       {loading && <Spinner />}
 
-      {performances && <TopPerformanceTable performances={performances} />}
+      <div>
+        {performanceList && (
+          <TopPerformanceTable performanceList={performanceList} />
+        )}
+      </div>
     </Fragment>
   );
 };

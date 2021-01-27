@@ -18,9 +18,16 @@ const ArtistInfo = ({ match }) => {
   return (
     <Fragment>
       {loading && <Spinner />}
-      {!loading && artist && (
-        <h2 className='info-header'>{artist.artist.name}</h2>
-      )}
+      <div className='artist-header'>
+        <div className='artist-header-text'>
+          {!loading && artist && (
+            <h2 className='info-header'>{artist.artist.name}</h2>
+          )}
+        </div>
+        <Link to='/create-song'>
+          <button type='button'>Submit New Song</button>
+        </Link>
+      </div>
       {!loading &&
         artist &&
         artist.songs.map((song, i) => {

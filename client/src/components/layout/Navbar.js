@@ -31,11 +31,6 @@ const Navbar = () => {
             )}
             {isAuthenticated && (
               <li>
-                <Link to='/submit'>Submit</Link>
-              </li>
-            )}
-            {isAuthenticated && (
-              <li>
                 <Link to='/logout'>Logout</Link>
               </li>
             )}

@@ -9,7 +9,7 @@ import Spinner from "./Spinner";
 
 const Homescreen = () => {
   const performances = useSelector(
-    (state) => state.performance.performances.data
+    (state) => state.performance.performanceList.data
   );
   const loading = useSelector((state) => state.performance.loading);
   const dispatch = useDispatch();

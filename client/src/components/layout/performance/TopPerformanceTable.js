@@ -3,16 +3,19 @@ import smiley from "./smiley.png";
 import frowny from "./frowny.png";
 import VoteBlock from "./VoteBlock";
 
-const TopPerformanceTable = (performances) => {
+const TopPerformanceTable = (props) => {
+  const { performanceList } = props;
+
   const [performanceVotes, setPerformanceVotes] = useState(
-    performances.performances.map((performance) => performance.votesCount)
+    performanceList.map((performance) => performance.votesCount)
   );
 
+  console.log(performanceList);
   return (
     <Fragment>
       <div className='perf-list'>
-        {performances &&
-          performances.performances.map((performance, i) => {
+        {performanceList &&
+          performanceList.map((performance, i) => {
             return (
               <div className='perf-list-item'>
                 <img

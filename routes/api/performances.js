@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middleware/auth");
+const optionalAuth = require("../../middleware/optionalAuth");
 const { validationResult, check } = require("express-validator");
 
 const Performance = require("../../models/Performance");
@@ -100,9 +101,9 @@ router.get("/", auth, async (req, res) => {
 
 // @route    GET api/performances/top
 // @desc     Get a list of the top ten performances
-// @access   Public
+// @access   Optional Auth
 
-router.get("/top", async (req, res) => {
+router.get("/top", optionalAuth, async (req, res) => {
   try {
     const performances = await Performance.find().sort({ votesCount: -1 });
     const size = performances.length >= 10 ? 10 : performances.length;
@@ -117,9 +118,9 @@ router.get("/top", async (req, res) => {
 
       const { link, votesCount, date, thumbnail } = performance;
       let userVote = 0;
-      if (req.body.user) {
+      if (req.user !== undefined) {
         performance.votes.forEach((vote) => {
-          if (vote.user === req.body.user.id) userVote = vote.value;
+          if (vote.user.toString() === req.user.id) userVote = vote.value;
         });
       }
 
@@ -140,7 +141,7 @@ router.get("/top", async (req, res) => {
       data,
     });
   } catch (err) {
-    console.error(err.message);
+    console.error("Error: " + err.message);
     res.status(500).send("Server Error");
   }
 });
@@ -266,9 +267,6 @@ router.post("/vote/:id", auth, async (req, res) => {
 
     let userIndex = -1;
     for (let i = 0; i < performance.votes.length; i++) {
-      console.log(
-        `performance.votes.user: ${performance.votes[i].user}, req.user.id: ${req.user.id}`
-      );
       if (performance.votes[i].user.toString() === req.user.id) userIndex = i;
     }
     if (userIndex === -1) {
