@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getArtist } from "../../../actions/artist";
+import { getArtist, clearArtistState } from "../../../actions/artist";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
+import { Breadcrumbs } from "@material-ui/core";
 
 const ArtistInfo = ({ match }) => {
   const artist = useSelector((state) => state.artist.artist);
@@ -13,21 +14,32 @@ const ArtistInfo = ({ match }) => {
 
   useEffect(() => {
     dispatch(getArtist(params.slug));
+
+    return () => {
+      dispatch(clearArtistState());
+    };
   }, []);
 
   return (
     <Fragment>
       {loading && <Spinner />}
-      <div className='artist-header'>
-        <div className='artist-header-text'>
-          {!loading && artist && (
-            <h2 className='info-header'>{artist.artist.name}</h2>
-          )}
+      {artist && (
+        <div className='breadcrumb'>
+          <div className='breadcrumb-path'>
+            <Breadcrumbs aria-label='breadcrumb'>
+              <Link color='inherit' to='/artists'>
+                Artists
+              </Link>
+              <Link color='inherit' to={`/artists/${params.artist_slug}`}>
+                {artist.artist.name}
+              </Link>
+            </Breadcrumbs>
+          </div>
+          <Link to='/create-song'>
+            <button type='button'>Submit New Song</button>
+          </Link>
         </div>
-        <Link to='/create-song'>
-          <button type='button'>Submit New Song</button>
-        </Link>
-      </div>
+      )}
       {!loading &&
         artist &&
         artist.songs.map((song, i) => {

@@ -39,6 +39,9 @@ PerformanceSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  description: {
+    type: String,
+  },
 });
 
 PerformanceSchema.pre("save", function (next) {

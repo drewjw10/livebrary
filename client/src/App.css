@@ -65,7 +65,7 @@ header {
 
 .perf-boxes {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: flex-start;
 }
 
@@ -77,6 +77,7 @@ header {
 .perf-box-body {
   display: flex;
   padding-left: 10px;
+  flex-direction: column;
 }
 
 .thumbnail-container {
@@ -92,13 +93,6 @@ header {
 
 .thumbnail-container img:hover {
   box-shadow: 0 0 0.5rem;
-}
-
-.create-performance,
-.create-song,
-.create-artist {
-  display: flex;
-  flex-direction: column;
 }
 
 .create-performance,
@@ -146,9 +140,20 @@ header {
   flex-direction: column;
 }
 
+.perf-list-left {
+  flex-basis: 100%;
+  display: flex;
+  margin-right: 2rem;
+  border-right: 1px solid var(--bright-highlight);
+}
+
+.perf-list-right {
+  flex-basis: 100%;
+}
+
 .perf-list-item {
   margin-top: 10px;
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
@@ -159,8 +164,10 @@ header {
 }
 
 .perf-list-thumbnail {
-  width: 480px;
-  height: 260px;
+  /* width: 480px;
+  height: 260px; */
+  width: 300px;
+  height: 154px;
   object-fit: cover;
   border-radius: 15px;
 }
@@ -182,6 +189,7 @@ header {
   color: gray;
   align-self: center;
   flex-direction: column;
+  margin-right: 10px;
 }
 
 .top-perf-table-votes img {
@@ -241,23 +249,8 @@ a:hover {
 }
 
 .search-input {
-  width: 40%;
-  height: 30px;
-}
-
-.artist-header {
-  display: flex;
-}
-
-.artist-header-text {
-  flex-basis: 70%;
-}
-
-.artist-header button {
-  margin-top: 10px;
-  align-content: right;
-  flex-basis: 10%;
-  background-color: rgba(0, 140, 255, 0.83);
-  border: 2px solid;
+  width: 30%;
+  padding: 10px;
+  margin: 10px 0;
   border-radius: 7px;
 }

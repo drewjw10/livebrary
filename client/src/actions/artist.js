@@ -6,6 +6,9 @@ import {
   GET_ARTIST_BEGIN,
   GET_ARTIST_SUCCESS,
   GET_ARTIST_FAILURE,
+  CLEAR_ARTIST_BEGIN,
+  CLEAR_ARTIST_SUCCESS,
+  CLEAR_ARTIST_FAILURE,
   GET_ARTISTLIST_BEGIN,
   GET_ARTISTLIST_SUCCESS,
   GET_ARTISTLIST_FAILURE,
@@ -81,4 +84,13 @@ export const getArtistList = () => async (dispatch) => {
       loading: false,
     });
   }
+};
+
+export const clearArtistState = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_ARTIST_BEGIN,
+  });
+  dispatch({
+    type: CLEAR_ARTIST_SUCCESS,
+  });
 };

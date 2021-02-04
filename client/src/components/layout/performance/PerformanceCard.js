@@ -12,8 +12,13 @@ const PerformanceCard = (props) => {
 
       <div className='perf-box-body'>
         <div className='perf-box-header'>
-          <h4>{`${props.artist} - ${props.song}`}</h4>
-          <h4>@ {props.venue}</h4>
+          <h4>
+            {`${props.artist} - ${props.song}`} @ {props.venue}
+          </h4>
+        </div>
+        <div className='perf-card-description'>
+          <h4>Submitted by: {props.user}</h4>
+          <p>{props.description}</p>
         </div>
       </div>
     </div>

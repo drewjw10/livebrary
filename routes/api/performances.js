@@ -28,7 +28,7 @@ router.post(
       return res.status(400).json({ errors: errors.json() });
     }
 
-    const { venue, song, artist, link } = req.body;
+    const { venue, song, artist, link, description } = req.body;
 
     try {
       // Check if performance already exists
@@ -50,6 +50,7 @@ router.post(
         song: songObj._id,
         link: link,
         user: req.user.id,
+        description: description,
       });
       await performance.save();
       res.json({ song_slug: songObj.slug, artist_slug: artistObj.slug });
@@ -116,7 +117,14 @@ router.get("/top", optionalAuth, async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
-      const { link, votesCount, date, thumbnail } = performance;
+      const {
+        link,
+        votesCount,
+        date,
+        thumbnail,
+        venue,
+        description,
+      } = performance;
       let userVote = 0;
       if (req.user !== undefined) {
         performance.votes.forEach((vote) => {
@@ -125,7 +133,7 @@ router.get("/top", optionalAuth, async (req, res) => {
       }
 
       data.push({
-        venue: performance.venue,
+        venue: venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
@@ -135,6 +143,7 @@ router.get("/top", optionalAuth, async (req, res) => {
         userVote: userVote,
         date: date,
         id: performance._id,
+        description: description,
       });
     }
     res.json({
@@ -164,7 +173,14 @@ router.get("/song/:id", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
-      const { link, votesCount, date, thumbnail } = performance;
+      const {
+        link,
+        votesCount,
+        date,
+        thumbnail,
+        venue,
+        description,
+      } = performance;
       let userVote = 0;
       if (req.body.user) {
         performance.votes.forEach((vote) => {
@@ -173,7 +189,7 @@ router.get("/song/:id", async (req, res) => {
       }
 
       data.push({
-        venue: performance.venue,
+        venue: venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
@@ -183,6 +199,7 @@ router.get("/song/:id", async (req, res) => {
         userVote: userVote,
         date: date,
         id: performance._id,
+        description: description,
       });
     }
     res.json({
@@ -195,13 +212,13 @@ router.get("/song/:id", async (req, res) => {
 });
 
 // @route    GET api/performances/recent
-// @desc     Get a list of the nine most recent performances
+// @desc     Get a list of the five most recent performances
 // @access   Public
 
 router.get("/recent", async (req, res) => {
   try {
     const performances = await Performance.find().sort({ date: -1 });
-    const size = performances.length >= 9 ? 9 : performances.length;
+    const size = performances.length >= 5 ? 5 : performances.length;
     const topPerformances = performances.slice(0, size);
     let data = [];
 
@@ -211,10 +228,17 @@ router.get("/recent", async (req, res) => {
       const artist = await Artist.findById(song.artist.toString());
       const user = await User.findById(performance.user.toString());
 
-      const { link, votesCount, date, thumbnail } = performance;
+      const {
+        link,
+        votesCount,
+        date,
+        thumbnail,
+        venue,
+        description,
+      } = performance;
 
       data.push({
-        performance: performance.venue,
+        performance: venue,
         song: song.name,
         artist: artist.name,
         user: user.name,
@@ -223,6 +247,7 @@ router.get("/recent", async (req, res) => {
         date: date,
         thumbnail: thumbnail,
         id: performance._id,
+        description: description,
       });
     }
     res.json({

@@ -31,14 +31,15 @@ const Search = () => {
       <Link to='/artists'>
         <p>See a list of artists</p>
       </Link>
-      <input
-        type='text'
-        placeholder='Search..'
-        value={searchText}
-        onChange={(e) => onChange(e)}
-        onKeyUp={(e) => onKeyUp(e)}
-        className='search-input'
-      ></input>
+      <div className='search-input'>
+        <input
+          type='text'
+          placeholder='Search..'
+          value={searchText}
+          onChange={(e) => onChange(e)}
+          onKeyUp={(e) => onKeyUp(e)}
+        ></input>
+      </div>
       <div class='search-box'>
         {loading && search === null && <Spinner />}
         {search && (

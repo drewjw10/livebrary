@@ -1,9 +1,12 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getSong } from "../../../actions/song";
-import { getPerformances } from "../../../actions/performances";
+import {
+  getPerformances,
+  clearPerformanceState,
+} from "../../../actions/performances";
 import Spinner from "../Spinner";
-import TopPerformanceTable from "../performance/TopPerformanceTable";
+import TopPerformanceTableSplit from "../performance/TopPerformanceTableSplit";
 import { Breadcrumbs } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -21,6 +24,10 @@ const SongInfo = ({ match }) => {
   useEffect(() => {
     dispatch(getSong(params.slug, params.artist_slug));
     dispatch(getPerformances(user, params.slug));
+
+    return () => {
+      dispatch(clearPerformanceState());
+    };
   }, []);
 
   return (
@@ -29,12 +36,13 @@ const SongInfo = ({ match }) => {
         <div className='breadcrumb'>
           <div className='breadcrumb-path'>
             <Breadcrumbs aria-label='breadcrumb'>
-              <Link color='inherit' href='/'>
+              <Link color='inherit' to='/artists'>
+                Artists
+              </Link>
+              <Link color='inherit' to={`/artists/${params.artist_slug}`}>
                 {song.song.artist}
               </Link>
-              <Link color='inherit' href='/getting-started/installation/'>
-                {song.song.name}
-              </Link>
+              <Link color='inherit'>{song.song.name}</Link>
             </Breadcrumbs>
           </div>
 
@@ -48,7 +56,7 @@ const SongInfo = ({ match }) => {
 
       <div>
         {performanceList && (
-          <TopPerformanceTable performanceList={performanceList} />
+          <TopPerformanceTableSplit performanceList={performanceList} />
         )}
       </div>
     </Fragment>

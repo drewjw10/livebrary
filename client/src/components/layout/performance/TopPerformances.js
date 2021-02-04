@@ -1,6 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import TopPerformanceTable from "./TopPerformanceTable";
-import { getTopPerformances } from "../../../actions/performances";
+import TopPerformanceTableSplit from "./TopPerformanceTableSplit";
+import {
+  getTopPerformances,
+  clearPerformanceState,
+} from "../../../actions/performances";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../Spinner";
 
@@ -14,13 +18,17 @@ const TopPerformances = () => {
 
   useEffect(() => {
     dispatch(getTopPerformances(user));
+    return () => {
+      dispatch(clearPerformanceState());
+    };
   }, []);
 
   return (
     <Fragment>
       {loading && <Spinner />}
       {performanceList && (
-        <TopPerformanceTable performanceList={performanceList} />
+        // Commented out to test split format: <TopPerformanceTable performanceList={performanceList} />
+        <TopPerformanceTableSplit performanceList={performanceList} />
       )}
     </Fragment>
   );

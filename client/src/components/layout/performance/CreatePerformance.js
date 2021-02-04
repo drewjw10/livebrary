@@ -4,15 +4,18 @@ import { createPerformance } from "../../../actions/performances";
 import { getArtistList } from "../../../actions/artist";
 import { Redirect } from "react-router-dom";
 
+import "./CreatePerformance.css";
+
 const CreatePerformance = () => {
   const [formData, setFormData] = useState({
     song: "",
     artist: "",
     venue: "",
     link: "",
+    description: "",
   });
 
-  const { song, artist, venue, link } = formData;
+  const { song, artist, venue, link, description } = formData;
 
   const createdPerformance = useSelector(
     (state) => state.performance.createdPerformance
@@ -29,7 +32,7 @@ const CreatePerformance = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createPerformance(song, artist, venue, link));
+    dispatch(createPerformance(song, artist, venue, link, description));
   };
 
   useEffect(() => {
@@ -81,6 +84,13 @@ const CreatePerformance = () => {
         type='text'
         name='link'
         value={link}
+        onChange={(e) => onChange(e)}
+      />
+      <label>Description: </label>
+      <input
+        type='text'
+        name='description'
+        value={description}
         onChange={(e) => onChange(e)}
       />
       <input type='submit' value='Create Performance' />

@@ -8,6 +8,9 @@ import {
   GET_ARTISTLIST_BEGIN,
   GET_ARTISTLIST_SUCCESS,
   GET_ARTISTLIST_FAILURE,
+  CLEAR_ARTIST_BEGIN,
+  CLEAR_ARTIST_SUCCESS,
+  CLEAR_ARTIST_FAILURE,
 } from "../actions/types";
 
 const initialState = {
@@ -69,6 +72,26 @@ export default function (state = initialState, action) {
         artistList: payload,
       };
     case GET_ARTISTLIST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: payload.msg,
+      };
+    case CLEAR_ARTIST_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CLEAR_ARTIST_SUCCESS:
+      return {
+        ...state,
+        artistList: null,
+        artist: null,
+        createdArtist: null,
+        loading: false,
+        error: null,
+      };
+    case CLEAR_ARTIST_FAILURE:
       return {
         ...state,
         loading: false,

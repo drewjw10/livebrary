@@ -45,16 +45,20 @@ export const getPerformance = (id) => async (dispatch) => {
   }
 };
 
-export const createPerformance = (song, artist, venue, link) => async (
-  dispatch
-) => {
+export const createPerformance = (
+  song,
+  artist,
+  venue,
+  link,
+  description
+) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ song, artist, venue, link });
+  const body = JSON.stringify({ song, artist, venue, link, description });
 
   try {
     dispatch({

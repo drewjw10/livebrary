@@ -42,7 +42,15 @@ const Homescreen = () => {
         {!loading &&
           performances &&
           performances.map(
-            ({ performance, song, artist, user, thumbnail, link }) => (
+            ({
+              performance,
+              song,
+              artist,
+              user,
+              thumbnail,
+              link,
+              description,
+            }) => (
               <PerformanceCard
                 venue={performance}
                 song={song}
@@ -50,6 +58,7 @@ const Homescreen = () => {
                 user={user}
                 thumbnail={thumbnail}
                 link={link}
+                description={description}
               ></PerformanceCard>
             )
           )}
