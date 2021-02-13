@@ -135,6 +135,16 @@ header {
   color: var(--bright-highlight);
 }
 
+.perf-list-container {
+  display: flex;
+}
+
+.perf-list-container h1 {
+  margin-right: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
 .perf-list {
   display: flex;
   flex-direction: column;

@@ -69,39 +69,55 @@ const vote = (
 ) => {
   e.preventDefault();
   if (isAuthenticated) {
+    // voteValue represents an upvote (1), downvote(-1), or no vote (0)
     let voteValue = 0;
+    let voteTotal = performanceVotes[index];
+    console.log(`original vote total: ${voteTotal}`);
     switch (performance.userVote) {
       case -1:
         if (voteType === 1) {
-          voteValue = -1;
-          setUserVote(-1);
-        } else if (voteType === 0) {
-          voteValue = -1;
-          setUserVote(0);
+          voteValue = 1;
+          setUserVote(1);
+          performance.userVote = 1;
+          voteTotal += 2;
         } else if (voteType === -1) {
           voteValue = 0;
           setUserVote(0);
+          voteTotal += 1;
+          performance.userVote = 0;
         }
+        break;
       case 1:
         if (voteType === -1) {
-          voteValue = 1;
-          setUserVote(1);
-        } else if (voteType === 0) {
-          voteValue = 1;
-          setUserVote(1);
+          voteValue = -1;
+          setUserVote(-1);
+          voteTotal -= 2;
+          performance.userVote = -1;
         } else if (voteType === 1) {
           voteValue = 0;
           setUserVote(0);
+          voteTotal -= 1;
+          performance.userVote = 0;
         }
+        break;
       case 0:
+        console.log("Case 0 performance.userVote entered");
         voteValue = voteType;
         setUserVote(voteType);
+        voteTotal += voteType;
+        performance.userVote = voteType;
+        break;
+      default:
+        console.log("Error - performance.userVote is invalid!");
     }
+    // update the list of performance vote totals
     setPerformanceVotes([
       ...performanceVotes.slice(0, index),
-      voteValue,
+      voteTotal,
       ...performanceVotes.slice(index + 1),
     ]);
+    console.log(`new vote total: ${voteTotal}`);
+    console.log(`dispatched request, voteValue: ${voteValue}`);
     dispatch(votePerformance(performance.id, voteValue, index));
   }
 
