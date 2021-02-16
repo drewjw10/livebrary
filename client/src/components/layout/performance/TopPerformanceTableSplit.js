@@ -16,43 +16,45 @@ const TopPerformanceTableSplit = (props) => {
       {performanceList &&
         performanceList.map((performance, i) => {
           return (
-            <div className='perf-list-item'>
-              <div className='perf-list-left'>
-                <h1>{i + 1}. </h1>
-                <div
-                  className='perf-list-img'
-                  style={{
-                    backgroundImage: `url("${performance.thumbnail}")`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-                <div className='top-perf-table-body'>
-                  <p>
-                    <a
-                      key={performance.venue + i}
-                      href={performance.link}
-                      target='_new'
-                      className='list-item-link'
-                    >
-                      {performance.artist} - {performance.song}
-                    </a>
-                  </p>
+            <div className='perf-list-wrapper'>
+              <h1 className='perf-list-wrapper__num'>{i + 1}. </h1>
+              <div className='perf-list-item'>
+                <div className='perf-list-left'>
+                  <div
+                    className='perf-list-img'
+                    style={{
+                      backgroundImage: `url("${performance.thumbnail}")`,
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
+                  <div className='top-perf-table-body'>
+                    <p>
+                      <a
+                        key={performance.venue + i}
+                        href={performance.link}
+                        target='_new'
+                        className='list-item-link'
+                      >
+                        {performance.artist} - {performance.song}
+                      </a>
+                    </p>
 
-                  <p>Venue: @ {performance.venue}</p>
+                    <p>Venue: @ {performance.venue}</p>
+                  </div>
+                  <div className='top-perf-table-votes'>
+                    <VoteBlock
+                      performance={performance}
+                      index={i}
+                      performanceVotes={performanceVotes}
+                      setPerformanceVotes={setPerformanceVotes}
+                    />
+                  </div>
                 </div>
-                <div className='top-perf-table-votes'>
-                  <VoteBlock
-                    performance={performance}
-                    index={i}
-                    performanceVotes={performanceVotes}
-                    setPerformanceVotes={setPerformanceVotes}
-                  />
+                <div className='perf-list-right'>
+                  <h4>Submitted by: {performance.user} </h4>
+                  <p>{performance.description}</p>
                 </div>
-              </div>
-              <div className='perf-list-right'>
-                <h4>Submitted by: {performance.user} </h4>
-                <p>{performance.description}</p>
               </div>
             </div>
           );

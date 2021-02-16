@@ -145,6 +145,14 @@ header {
   justify-content: center;
 }
 
+.perf-list-wrapper {
+  display: flex;
+}
+
+.perf-list-wrapper__num {
+  margin-right: 10px;
+}
+
 .perf-list {
   display: flex;
   flex-direction: column;
@@ -162,18 +170,18 @@ header {
 }
 
 .perf-list-item {
-  margin-top: 10px;
-  margin-bottom: 40px;
+  margin-top: 20px;
   width: 100%;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease-in-out;
+  background-color: rgba(180, 173, 173, 0.3);
 }
 
 .perf-list-item:hover {
-  box-shadow: 0 5px 15px rgba(180, 173, 173, 0.3);
+  box-shadow: 0 5px 15px rgba(243, 239, 239, 0.3);
 }
 
 .perf-list-img {
