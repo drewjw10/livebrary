@@ -56,7 +56,7 @@ export default function (state = initialState, action) {
     case GET_TOP_PERFORMANCES_FAILURE:
       return {
         ...state,
-        error: payload.error,
+        error: payload,
         loading: false,
         performanceList: [],
       };

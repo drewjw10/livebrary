@@ -19,11 +19,14 @@ const TopPerformanceTableSplit = (props) => {
             <div className='perf-list-item'>
               <div className='perf-list-left'>
                 <h1>{i + 1}. </h1>
-                <img
-                  src={performance.thumbnail}
-                  className='perf-list-thumbnail'
-                />
-
+                <div
+                  className='perf-list-img'
+                  style={{
+                    backgroundImage: `url("${performance.thumbnail}")`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
                 <div className='top-perf-table-body'>
                   <p>
                     <a
