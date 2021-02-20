@@ -45,7 +45,6 @@ export const createArtist = (name) => async (dispatch) => {
 
 export const getArtist = (slug) => async (dispatch) => {
   try {
-    console.log(`id param: ${slug}`);
     dispatch({
       type: GET_ARTIST_BEGIN,
       loading: true,

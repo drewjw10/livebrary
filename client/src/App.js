@@ -25,6 +25,7 @@ import SongInfo from "./components/layout/song/SongInfo";
 import PerformanceInfo from "./components/layout/performance/PerformanceInfo";
 import ArtistList from "./components/layout/artist/ArtistList";
 import Logout from "./components/auth/Logout";
+import SpotifyTracks from "./components/layout/spotify/SpotifyTracks";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -67,6 +68,7 @@ const App = () => {
               />
               <Route exact path='/artists/' component={ArtistList} />
               <Route exact path='/logout/' component={Logout} />
+              <Route exact path='/spotify/' component={SpotifyTracks} />
               <Redirect to='/' />
             </Switch>
           </section>

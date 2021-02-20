@@ -4,6 +4,7 @@ import { login } from "../../actions/auth";
 import { Link, Redirect } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
+import SpotifyLogin from "./SpotifyLogin";
 import "./Login.css";
 
 const Login = ({ login }) => {
@@ -56,6 +57,7 @@ const Login = ({ login }) => {
         </p>
       </div>
       <div>{isAuthenticated && <Redirect to='/'></Redirect>}</div>
+      <SpotifyLogin />
     </Fragment>
   );
 };
