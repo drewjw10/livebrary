@@ -48,7 +48,6 @@ router.get("/", async (req, res) => {
         alphabeticalArtists[firstChar].push(artist);
       else alphabeticalArtists[firstChar] = [artist];
     }
-    console.log(alphabeticalArtists);
     res.json(alphabeticalArtists);
   } catch (err) {
     console.error(err.message);

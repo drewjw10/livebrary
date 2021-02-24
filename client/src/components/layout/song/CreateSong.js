@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSong } from "../../../actions/song";
+import { searchSpotifySong } from "../../../actions/spotify";
 import { Redirect } from "react-router-dom";
+
+import "./CreateSong.css";
 
 const CreateSong = () => {
   const [formData, setFormData] = useState({
+    spotifyName: "",
     name: "",
     artist: "",
   });
 
-  const { name, artist } = formData;
+  const { name, artist, spotifyName } = formData;
 
   const createdSong = useSelector((state) => state.song.createdSong);
+  const spotifySongs = useSelector((state) => state.spotify.songs);
+  const token = useSelector((state) => state.spotify.token);
   const dispatch = useDispatch();
 
   const onSubmit = (e) => {
@@ -26,6 +32,11 @@ const CreateSong = () => {
     });
   };
 
+  const searchSpotify = (e) => {
+    e.preventDefault();
+    dispatch(searchSpotifySong(spotifyName, token));
+  };
+
   if (createdSong) {
     return (
       <Redirect
@@ -36,15 +47,33 @@ const CreateSong = () => {
 
   return (
     <form className='create-song' onSubmit={(e) => onSubmit(e)}>
-      <label>Song name: </label>
-      <input
-        type='text'
+      <label>Search for Spotify Song:</label>
+      <div className='spotify-search'>
+        <input
+          type='text'
+          name='spotifyName'
+          value={spotifyName}
+          placeholder='Song name'
+          onChange={(e) => onChange(e)}
+        />
+        <button onClick={(e) => searchSpotify(e)}>Search Spotify</button>
+      </div>
+      {spotifySongs && console.log(spotifySongs)}
+      <label>Select song name: </label>
+      <select
         name='name'
         value={name}
         placeholder='Song name'
         onChange={(e) => onChange(e)}
         required
-      />
+      >
+        {spotifySongs.length !== 0 &&
+          spotifySongs.data.tracks.items.map((song) => (
+            <option name={song.name}>
+              {song.name} | {song.artists[0].name}
+            </option>
+          ))}
+      </select>
       <label>Artist: </label>
       <input
         type='text'

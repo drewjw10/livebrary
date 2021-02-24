@@ -1,14 +1,18 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getArtist, clearArtistState } from "../../../actions/artist";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import { Breadcrumbs } from "@material-ui/core";
 
+import CreateSong from "../song/CreateSong";
+import "./ArtistInfo.css";
+
 const ArtistInfo = ({ match }) => {
   const artist = useSelector((state) => state.artist.artist);
   const loading = useSelector((state) => state.artist.loading);
   const dispatch = useDispatch();
+  const [showForm, setShowForm] = useState(false);
 
   let params = match.params;
 
@@ -19,6 +23,11 @@ const ArtistInfo = ({ match }) => {
       dispatch(clearArtistState());
     };
   }, []);
+
+  const showFormHandler = (e) => {
+    e.preventDefault();
+    setShowForm(!showForm);
+  };
 
   return (
     <Fragment>
@@ -35,9 +44,9 @@ const ArtistInfo = ({ match }) => {
               </Link>
             </Breadcrumbs>
           </div>
-          <Link to='/create-song'>
-            <button type='button'>Submit New Song</button>
-          </Link>
+          <button type='button' onClick={(e) => showFormHandler(e)}>
+            Submit New Song
+          </button>
         </div>
       )}
       {!loading &&
@@ -52,6 +61,11 @@ const ArtistInfo = ({ match }) => {
             </Link>
           );
         })}
+      {showForm && (
+        <div className='create-song__form'>
+          <CreateSong style={{}} />
+        </div>
+      )}
     </Fragment>
   );
 };

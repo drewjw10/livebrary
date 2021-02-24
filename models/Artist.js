@@ -17,6 +17,10 @@ ArtistSchema = new mongoose.Schema({
   slug: {
     type: String,
   },
+  spotifyId: {
+    type: String,
+    unique: true,
+  },
 });
 
 ArtistSchema.pre("save", function (next) {

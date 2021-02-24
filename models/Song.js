@@ -16,6 +16,10 @@ const SongSchema = new mongoose.Schema({
   slug: {
     type: String,
   },
+  spotifyId: {
+    type: String,
+    unique: true,
+  },
 });
 
 SongSchema.pre("save", function (next) {

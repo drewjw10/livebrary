@@ -20,10 +20,7 @@ const SpotifyTracks = (props) => {
       {spotifySongs.length !== 0 &&
         spotifySongs.data.items.map((item) => <li>{item.track.name}</li>)}
     </ul>
-
-    // spotifySongs.data.items.map((item) => item.name))
   );
-  // spotifySongs.map((song) => <li>{song}</li>)
 };
 
 export default SpotifyTracks;

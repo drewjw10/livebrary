@@ -1,0 +1,25 @@
+form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+.spotify-search {
+  display: flex;
+  align-content: center;
+}
+
+.spotify-search input[type="text"] {
+  flex-basis: 50%;
+}
+
+button {
+  background-color: rgba(0, 140, 255, 0.83);
+  width: 10rem;
+  height: 2rem;
+  border: 2px solid;
+  border-radius: 7px;
+  position: relative;
+  top: 0.8rem;
+  left: 1rem;
+}
