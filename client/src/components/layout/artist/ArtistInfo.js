@@ -63,7 +63,10 @@ const ArtistInfo = ({ match }) => {
         })}
       {showForm && (
         <div className='create-song__form'>
-          <CreateSong style={{}} />
+          <CreateSong
+            artistName={artist.name}
+            artistSpotifyId={artist.spotifyId}
+          />
         </div>
       )}
     </Fragment>

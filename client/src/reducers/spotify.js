@@ -6,6 +6,9 @@ import {
   SEARCH_SPOTIFY_SONG_BEGIN,
   SEARCH_SPOTIFY_SONG_SUCCESS,
   SEARCH_SPOTIFY_SONG_FAILURE,
+  CLEAR_SPOTIFY_SONG_BEGIN,
+  CLEAR_SPOTIFY_SONG_SUCCESS,
+  CLEAR_SPOTIFY_SONG_FAILURE,
 } from "../actions/types";
 
 const initialState = {
@@ -54,6 +57,22 @@ export default function (state = initialState, action) {
         songs: payload,
       };
     case SEARCH_SPOTIFY_SONG_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    case CLEAR_SPOTIFY_SONG_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CLEAR_SPOTIFY_SONG_SUCCESS:
+      return {
+        ...initialState,
+        loading: false,
+      };
+    case CLEAR_SPOTIFY_SONG_FAILURE:
       return {
         ...state,
         loading: false,

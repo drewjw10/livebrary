@@ -7,6 +7,9 @@ import {
   SEARCH_SPOTIFY_SONG_BEGIN,
   SEARCH_SPOTIFY_SONG_SUCCESS,
   SEARCH_SPOTIFY_SONG_FAILURE,
+  CLEAR_SPOTIFY_SONG_BEGIN,
+  CLEAR_SPOTIFY_SONG_SUCCESS,
+  CLEAR_SPOTIFY_SONG_FAILURE,
 } from "./types";
 
 export const setSpotifyToken = (token) => (dispatch) => {
@@ -80,4 +83,13 @@ export const searchSpotifySong = (searchText, token) => async (dispatch) => {
       payload: err,
     });
   }
+};
+
+export const clearSpotifySongSearch = () => (dispatch) => {
+  dispatch({
+    type: CLEAR_SPOTIFY_SONG_BEGIN,
+  });
+  dispatch({
+    type: CLEAR_SPOTIFY_SONG_SUCCESS,
+  });
 };
