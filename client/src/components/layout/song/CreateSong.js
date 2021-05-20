@@ -1,10 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { createSong } from "../../../actions/song";
-import {
-  searchSpotifySong,
-  clearSpotifySongSearch,
-} from "../../../actions/spotify";
+import { searchSpotify, clearSpotifySearch } from "../../../actions/spotify";
 import { Redirect } from "react-router-dom";
 
 import "./CreateSong.css";
@@ -27,7 +24,14 @@ const CreateSong = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatch(createSong(name, artistName));
+    console.log(`Artist Spotify Id: ${artistSpotifyId}`);
+    dispatch(
+      createSong(
+        selectedSpotifyObject.name,
+        artistSpotifyId,
+        selectedSpotifyObject.id
+      )
+    );
   };
 
   const onChange = (e) => {
@@ -48,11 +52,10 @@ const CreateSong = (props) => {
   };
 
   const searchSpotify = (e) => {
-    dispatch(clearSpotifySongSearch());
+    dispatch(clearSpotifySearch());
     setSpotifySearched(true);
     e.preventDefault();
-    dispatch(searchSpotifySong(spotifyName, token));
-    console.log(spotifySongs);
+    dispatch(searchSpotify(spotifyName, token, "track"));
   };
 
   function populateSelectFromNewSearch() {
@@ -104,14 +107,8 @@ const CreateSong = (props) => {
           {spotifySearched && populateSelectFromNewSearch()}
         </Fragment>
       )}
-      <label>Artist Spotify ID: {artistSpotifyId}</label>
-      <label>
-        Selected Spotify ID:{" "}
-        {Object.keys(selectedSpotifyObject).length > 0 &&
-          selectedSpotifyObject.artists[0].id}
-      </label>
       {console.log(selectedSpotifyObject)}
-      <input type='submit' value='Create Song' />
+      <input type='submit' value='Add Song' />
     </form>
   );
 };

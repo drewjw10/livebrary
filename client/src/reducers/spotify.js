@@ -6,9 +6,12 @@ import {
   SEARCH_SPOTIFY_SONG_BEGIN,
   SEARCH_SPOTIFY_SONG_SUCCESS,
   SEARCH_SPOTIFY_SONG_FAILURE,
-  CLEAR_SPOTIFY_SONG_BEGIN,
-  CLEAR_SPOTIFY_SONG_SUCCESS,
-  CLEAR_SPOTIFY_SONG_FAILURE,
+  SEARCH_SPOTIFY_ARTIST_BEGIN,
+  SEARCH_SPOTIFY_ARTIST_SUCCESS,
+  SEARCH_SPOTIFY_ARTIST_FAILURE,
+  CLEAR_SPOTIFY_BEGIN,
+  CLEAR_SPOTIFY_SUCCESS,
+  CLEAR_SPOTIFY_FAILURE,
 } from "../actions/types";
 
 const initialState = {
@@ -62,17 +65,34 @@ export default function (state = initialState, action) {
         loading: false,
         error: payload,
       };
-    case CLEAR_SPOTIFY_SONG_BEGIN:
+    case SEARCH_SPOTIFY_ARTIST_BEGIN:
       return {
         ...state,
         loading: true,
       };
-    case CLEAR_SPOTIFY_SONG_SUCCESS:
+    case SEARCH_SPOTIFY_ARTIST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        artists: payload,
+      };
+    case SEARCH_SPOTIFY_ARTIST_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
+      };
+    case CLEAR_SPOTIFY_BEGIN:
+      return {
+        ...state,
+        loading: true,
+      };
+    case CLEAR_SPOTIFY_SUCCESS:
       return {
         ...initialState,
         loading: false,
       };
-    case CLEAR_SPOTIFY_SONG_FAILURE:
+    case CLEAR_SPOTIFY_FAILURE:
       return {
         ...state,
         loading: false,

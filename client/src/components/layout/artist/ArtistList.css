@@ -1,0 +1,9 @@
+.artist-list__header {
+  display: flex;
+  width: 80%;
+  justify-content: space-between;
+}
+
+.artist-list__header button {
+  align-self: baseline;
+}

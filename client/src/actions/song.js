@@ -8,32 +8,35 @@ import {
 } from "./types";
 import axios from "axios";
 
-export const createSong = (name, artist) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export const createSong =
+  (name, artistSpotifyId, songSpotifyId) => async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    console.log(`Artist spotify Id:  ${artistSpotifyId}`);
+
+    const body = JSON.stringify({ name, artistSpotifyId, songSpotifyId });
+
+    try {
+      dispatch({
+        type: CREATE_SONG_BEGIN,
+      });
+
+      const res = await axios.post("/api/songs/", body, config);
+      dispatch({
+        type: CREATE_SONG_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: CREATE_SONG_FAILURE,
+        payload: err,
+      });
+    }
   };
-
-  const body = JSON.stringify({ name, artist });
-
-  try {
-    dispatch({
-      type: CREATE_SONG_BEGIN,
-    });
-
-    const res = await axios.post("/api/songs/", body, config);
-    dispatch({
-      type: CREATE_SONG_SUCCESS,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: CREATE_SONG_FAILURE,
-      payload: err,
-    });
-  }
-};
 
 export const getSong = (slug, artist_slug) => async (dispatch) => {
   try {

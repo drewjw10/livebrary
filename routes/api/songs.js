@@ -15,7 +15,8 @@ router.post(
     auth,
     [
       check("name", "Song name is required").not().isEmpty(),
-      check("artist", "Artist is required").not().isEmpty(),
+      check("artistSpotifyId", "Artist is required").not().isEmpty(),
+      check("songSpotifyId", "Song is required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
@@ -26,11 +27,11 @@ router.post(
       console.error(errors);
     }
 
-    const { name, artist } = req.body;
+    const { name, artistSpotifyId, songSpotifyId } = req.body;
 
     try {
       let song = await Song.findOne({ name: name });
-      let artistObj = await Artist.findOne({ name: artist });
+      let artistObj = await Artist.findOne({ spotifyId: artistSpotifyId });
 
       if (song) {
         return res
@@ -44,7 +45,12 @@ router.post(
           .json({ errors: [{ msg: "Artist does not exist" }] });
       }
 
-      song = new Song({ name: name, artist: artistObj, user: req.user.id });
+      song = new Song({
+        name: name,
+        artist: artistObj,
+        user: req.user.id,
+        spotifyId: songSpotifyId,
+      });
       await song.save();
       res.json({ song: song, artist_slug: artistObj.slug });
     } catch (err) {

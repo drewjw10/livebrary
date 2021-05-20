@@ -60,7 +60,13 @@ router.get("/", async (req, res) => {
 // @access   Private
 router.post(
   "/",
-  [auth, [check("name", "Name is required").not().isEmpty()]],
+  [
+    auth,
+    [
+      check("name", "Name is required").not().isEmpty(),
+      check("spotifyId", "Spotify Id is required").not().isEmpty(),
+    ],
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -68,16 +74,17 @@ router.post(
     }
 
     name = req.body.name;
+    spotifyId = req.body.spotifyId;
 
     try {
-      let artist = await Artist.findOne({ name: name });
+      let artist = await Artist.findOne({ spotifyID: spotifyId });
       console.log(artist);
 
       if (artist) {
         return res.status(400).send("Artist already exists");
       }
 
-      artist = new Artist({ name: name });
+      artist = new Artist({ spotifyId: spotifyId, name: name });
 
       await artist.save();
       res.json(artist);
