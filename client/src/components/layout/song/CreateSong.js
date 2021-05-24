@@ -51,7 +51,7 @@ const CreateSong = (props) => {
     setSelectedSpotifyObject(spotifySongs.data.tracks.items[objIndex]);
   };
 
-  const searchSpotify = (e) => {
+  const searchSpotifyHandler = (e) => {
     dispatch(clearSpotifySearch());
     setSpotifySearched(true);
     e.preventDefault();
@@ -86,7 +86,7 @@ const CreateSong = (props) => {
           placeholder='Song name'
           onChange={(e) => onChange(e)}
         />
-        <button onClick={(e) => searchSpotify(e)}>Search Spotify</button>
+        <button onClick={(e) => searchSpotifyHandler(e)}>Search Spotify</button>
       </div>
       {spotifySongs.length !== 0 && (
         <Fragment>

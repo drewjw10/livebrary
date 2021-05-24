@@ -2,8 +2,10 @@
   display: flex;
   width: 80%;
   justify-content: space-between;
+  align-items: center;
 }
 
 .artist-list__header button {
   align-self: baseline;
+  height: 2rem;
 }

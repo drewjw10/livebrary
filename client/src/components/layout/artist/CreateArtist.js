@@ -30,7 +30,8 @@ const CreateArtist = () => {
     dispatch(createArtist(spotifyName)); //rework createArtist to be based on spotifyId
   };
 
-  const searchSpotify = (e) => {
+  const searchSpotifyHandler = (e) => {
+    e.preventDefault();
     dispatch(clearSpotifySearch());
     setSpotifySearched(true);
     console.log(e);
@@ -71,28 +72,31 @@ const CreateArtist = () => {
           placeholder='Artist Name'
           onChange={(e) => onChange(e)}
         />
-        <button onClick={(e) => searchSpotify(e)}>Search Spotify</button>
+        <button onClick={(e) => searchSpotifyHandler(e)}>Search Spotify</button>
       </div>
-      {spotifyArtists.length !== 0 && (
-        <Fragment>
-          <label>Select artist name: </label>
-          <select
-            name='selectedSpotifyArtist'
-            placeholder='Artist name'
-            onChange={(e) => onChangeSelect(e)}
-            required
-          >
-            {spotifyArtists.length !== 0 &&
-              spotifyArtists.data.artists.items.map((artist, i) => (
-                <option key={i} data-key={i} name={artist.name}>
-                  {artist.name}
-                </option>
-              ))}
-          </select>
+      <div>
+        {spotifyArtists.length !== 0 && (
+          <Fragment>
+            <label>Select artist name: </label>
+            <select
+              name='selectedSpotifyArtist'
+              placeholder='Artist name'
+              onChange={(e) => onChangeSelect(e)}
+              required
+            >
+              {spotifyArtists.length !== 0 &&
+                spotifyArtists.data.artists.items.map((artist, i) => (
+                  <option key={i} data-key={i} name={artist.name}>
+                    {artist.name}
+                  </option>
+                ))}
+            </select>
 
-          {spotifySearched && populateSelectFromNewSearch()}
-        </Fragment>
-      )}
+            {spotifySearched && populateSelectFromNewSearch()}
+          </Fragment>
+        )}
+      </div>
+
       <input type='submit' value='Create Artist' />
     </form>
   );

@@ -28,7 +28,7 @@ const ArtistList = () => {
         <button type='button' onClick={(e) => showFormHandler(e)}>
           Submit New Artist
         </button>
-        <Modal show={showForm}>
+        <Modal show={showForm} onClick={showFormHandler}>
           <CreateArtist />
         </Modal>
       </div>

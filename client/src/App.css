@@ -13,7 +13,7 @@ li,
 a,
 button {
   font-weight: 500;
-  font-size: 16px;
+  font-size: 1rem;
   color: #edf0f1;
   text-decoration: none;
 }
@@ -99,13 +99,6 @@ header {
 .create-song,
 .create-artist input[type="submit"] {
   margin-top: 5px;
-  width: 10%;
-}
-
-.create-performance,
-.create-song,
-.create-artist input {
-  width: 30%;
 }
 
 .list-item {

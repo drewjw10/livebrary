@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Spinner from "../Spinner";
 import { Breadcrumbs } from "@material-ui/core";
 
+import Modal from "../shared/Modal";
 import CreateSong from "../song/CreateSong";
 import "./ArtistInfo.css";
 
@@ -61,13 +62,13 @@ const ArtistInfo = ({ match }) => {
             </Link>
           );
         })}
-      {showForm && (
-        <div className='create-song__form'>
+      {artist && (
+        <Modal show={showForm} onClick={showFormHandler}>
           <CreateSong
             artistName={artist.artist.name}
             artistSpotifyId={artist.artist.spotifyId}
           />
-        </div>
+        </Modal>
       )}
     </Fragment>
   );

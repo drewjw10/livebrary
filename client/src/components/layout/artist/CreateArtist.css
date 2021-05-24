@@ -1,4 +1,27 @@
+.create-artist form {
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+.create-artist label {
+  color: black;
+}
+
 .spotify-search {
   display: flex;
-  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.spotify-search input[type="text"] {
+  width: 25rem;
+  flex-basis: 60%;
+}
+
+.spotify-search button {
+  flex-basis: 30%;
+  top: 0;
+  bottom: 0;
+  height: 2.5rem;
 }
