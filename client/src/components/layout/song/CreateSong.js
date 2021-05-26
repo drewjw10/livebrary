@@ -76,40 +76,44 @@ const CreateSong = (props) => {
   }
 
   return (
-    <form className='create-song' onSubmit={(e) => onSubmit(e)}>
-      <label>Search for Spotify Song:</label>
-      <div className='spotify-search'>
-        <input
-          type='text'
-          name='spotifyName'
-          value={spotifyName}
-          placeholder='Song name'
-          onChange={(e) => onChange(e)}
-        />
-        <button onClick={(e) => searchSpotifyHandler(e)}>Search Spotify</button>
-      </div>
-      {spotifySongs.length !== 0 && (
-        <Fragment>
-          <label>Select song name: </label>
-          <select
-            name='selectedSpotifySong'
+    <div className='create-song__wrapper'>
+      <form className='create-song__form' onSubmit={(e) => onSubmit(e)}>
+        <label>Search for Spotify Song:</label>
+        <div className='spotify-search'>
+          <input
+            type='text'
+            name='spotifyName'
+            value={spotifyName}
             placeholder='Song name'
-            onChange={(e) => onChangeSelect(e)}
-            required
-          >
-            {spotifySongs.length !== 0 &&
-              spotifySongs.data.tracks.items.map((song, i) => (
-                <option key={i} data-key={i} name={song.name}>
-                  {song.name} | {song.artists[0].name}
-                </option>
-              ))}
-          </select>
-          {spotifySearched && populateSelectFromNewSearch()}
-        </Fragment>
-      )}
-      {console.log(selectedSpotifyObject)}
-      <input type='submit' value='Add Song' />
-    </form>
+            onChange={(e) => onChange(e)}
+          />
+          <button onClick={(e) => searchSpotifyHandler(e)}>
+            Search Spotify
+          </button>
+        </div>
+        {spotifySongs.length !== 0 && (
+          <Fragment>
+            <label>Select song name: </label>
+            <select
+              name='selectedSpotifySong'
+              placeholder='Song name'
+              onChange={(e) => onChangeSelect(e)}
+              required
+            >
+              {spotifySongs.length !== 0 &&
+                spotifySongs.data.tracks.items.map((song, i) => (
+                  <option key={i} data-key={i} name={song.name}>
+                    {song.name} | {song.artists[0].name}
+                  </option>
+                ))}
+            </select>
+            {spotifySearched && populateSelectFromNewSearch()}
+          </Fragment>
+        )}
+        {console.log(selectedSpotifyObject)}
+        <input type='submit' value='Add Song' />
+      </form>
+    </div>
   );
 };
 

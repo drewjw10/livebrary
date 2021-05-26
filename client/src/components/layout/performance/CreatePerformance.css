@@ -25,14 +25,14 @@ select {
   border-radius: 7px;
 }
 
-input[type="text"] {
+.create-performance input[type="text"] {
   width: 100%;
   padding: 10px;
   margin: 10px 0;
   border-radius: 7px;
 }
 
-input[type="submit"] {
+.create-performance input[type="submit"] {
   background-color: rgba(0, 140, 255, 0.83);
   width: 9rem;
   height: 3rem;

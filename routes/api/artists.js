@@ -63,7 +63,7 @@ router.post(
   [
     auth,
     [
-      check("name", "Name is required").not().isEmpty(),
+      check("spotifyName", "Name is required").not().isEmpty(),
       check("spotifyId", "Spotify Id is required").not().isEmpty(),
     ],
   ],
@@ -73,7 +73,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    name = req.body.name;
+    spotifyName = req.body.spotifyName;
     spotifyId = req.body.spotifyId;
 
     try {
@@ -84,7 +84,7 @@ router.post(
         return res.status(400).send("Artist already exists");
       }
 
-      artist = new Artist({ spotifyId: spotifyId, name: name });
+      artist = new Artist({ spotifyId: spotifyId, name: spotifyName });
 
       await artist.save();
       res.json(artist);

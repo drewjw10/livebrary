@@ -27,7 +27,10 @@ const CreateArtist = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createArtist(spotifyName)); //rework createArtist to be based on spotifyId
+    console.log(selectedSpotifyObject);
+    dispatch(
+      createArtist(selectedSpotifyObject.name, selectedSpotifyObject.id)
+    ); //rework createArtist to be based on spotifyId
   };
 
   const searchSpotifyHandler = (e) => {
@@ -62,43 +65,48 @@ const CreateArtist = () => {
   }
 
   return (
-    <form className='create-artist' onSubmit={(e) => onSubmit(e)}>
-      <label>Search for Spotify Artist: </label>
-      <div className='spotify-search'>
-        <input
-          type='text'
-          name='spotifyName'
-          value={spotifyName}
-          placeholder='Artist Name'
-          onChange={(e) => onChange(e)}
-        />
-        <button onClick={(e) => searchSpotifyHandler(e)}>Search Spotify</button>
-      </div>
-      <div>
-        {spotifyArtists.length !== 0 && (
-          <Fragment>
-            <label>Select artist name: </label>
-            <select
-              name='selectedSpotifyArtist'
-              placeholder='Artist name'
-              onChange={(e) => onChangeSelect(e)}
-              required
-            >
-              {spotifyArtists.length !== 0 &&
-                spotifyArtists.data.artists.items.map((artist, i) => (
-                  <option key={i} data-key={i} name={artist.name}>
-                    {artist.name}
-                  </option>
-                ))}
-            </select>
+    <div className='create-artist__wrapper'>
+      <form className='create-artist__form' onSubmit={(e) => onSubmit(e)}>
+        <label>Search for Spotify Artist: </label>
 
-            {spotifySearched && populateSelectFromNewSearch()}
-          </Fragment>
-        )}
-      </div>
+        <div className='spotify-search'>
+          <input
+            type='text'
+            name='spotifyName'
+            value={spotifyName}
+            placeholder='Artist Name'
+            onChange={(e) => onChange(e)}
+          />
+          <button onClick={(e) => searchSpotifyHandler(e)}>
+            Search Spotify
+          </button>
+        </div>
+        <div>
+          {spotifyArtists.length !== 0 && (
+            <Fragment>
+              <label>Select artist name: </label>
+              <select
+                name='selectedSpotifyArtist'
+                placeholder='Artist name'
+                onChange={(e) => onChangeSelect(e)}
+                required
+              >
+                {spotifyArtists.length !== 0 &&
+                  spotifyArtists.data.artists.items.map((artist, i) => (
+                    <option key={i} data-key={i} name={artist.name}>
+                      {artist.name}
+                    </option>
+                  ))}
+              </select>
 
-      <input type='submit' value='Create Artist' />
-    </form>
+              {spotifySearched && populateSelectFromNewSearch()}
+            </Fragment>
+          )}
+        </div>
+
+        <input type='submit' value='Create Artist' />
+      </form>
+    </div>
   );
 };
 

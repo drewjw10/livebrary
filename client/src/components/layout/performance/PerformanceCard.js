@@ -1,5 +1,4 @@
 import React from "react";
-import { url } from "gravatar";
 
 const PerformanceCard = (props) => {
   return (

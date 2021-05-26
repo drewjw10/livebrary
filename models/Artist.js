@@ -4,7 +4,6 @@ ArtistSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
   },
   date: {
     type: Date,
@@ -16,10 +15,6 @@ ArtistSchema = new mongoose.Schema({
   },
   slug: {
     type: String,
-  },
-  spotifyId: {
-    type: String,
-    unique: true,
   },
   spotifyId: {
     type: String,

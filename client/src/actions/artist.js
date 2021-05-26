@@ -14,14 +14,14 @@ import {
   GET_ARTISTLIST_FAILURE,
 } from "./types";
 
-export const createArtist = (name, spotifyId) => async (dispatch) => {
+export const createArtist = (spotifyName, spotifyId) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({ name, spotifyId });
+  const body = JSON.stringify({ spotifyName, spotifyId });
 
   try {
     dispatch({
