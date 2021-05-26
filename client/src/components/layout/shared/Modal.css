@@ -9,9 +9,11 @@
   transform: scale(1);
   opacity: 1;
   visibility: visible;
-  position: absolute;
-  top: 200px;
-  left: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -16rem;
+  margin-left: -16rem;
   border-radius: 1.25rem;
 }
 
