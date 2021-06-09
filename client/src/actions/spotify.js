@@ -15,19 +15,23 @@ import {
   CLEAR_SPOTIFY_FAILURE,
 } from "./types";
 
-export const setSpotifyToken = (token) => (dispatch) => {
+const getToken = () => {
+  return localStorage.getItem("spotify-auth-token");
+};
+
+export const setSpotifyToken = () => (dispatch) => {
   dispatch({
     type: SET_SPOTIFY_TOKEN,
-    payload: token,
+    payload: getToken(),
   });
 };
 
-export const getSpotifySongs = (token) => async (dispatch) => {
+export const getSpotifySongs = () => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   };
   try {
@@ -57,12 +61,12 @@ export const getSpotifySongs = (token) => async (dispatch) => {
   }
 };
 
-export const searchSpotify = (searchText, token, type) => async (dispatch) => {
+export const searchSpotify = (searchText, type) => async (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     },
   };
 

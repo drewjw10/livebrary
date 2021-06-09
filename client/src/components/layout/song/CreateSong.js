@@ -17,7 +17,6 @@ const CreateSong = (props) => {
   const { artistName, artistSpotifyId } = props;
   const createdSong = useSelector((state) => state.song.createdSong);
   const spotifySongs = useSelector((state) => state.spotify.songs);
-  const token = useSelector((state) => state.spotify.token);
   const dispatch = useDispatch();
   const [spotifySearched, setSpotifySearched] = useState(true);
   const [selectedSpotifyObject, setSelectedSpotifyObject] = useState({});
@@ -49,13 +48,14 @@ const CreateSong = (props) => {
     const selectedIndex = e.target.options.selectedIndex;
     const objIndex = e.target.options[selectedIndex].getAttribute("data-key");
     setSelectedSpotifyObject(spotifySongs.data.tracks.items[objIndex]);
+    console.log(selectedSpotifyObject);
   };
 
   const searchSpotifyHandler = (e) => {
     dispatch(clearSpotifySearch());
     setSpotifySearched(true);
     e.preventDefault();
-    dispatch(searchSpotify(spotifyName, token, "track"));
+    dispatch(searchSpotify(spotifyName, "track"));
   };
 
   function populateSelectFromNewSearch() {
@@ -110,7 +110,13 @@ const CreateSong = (props) => {
             {spotifySearched && populateSelectFromNewSearch()}
           </Fragment>
         )}
-        {console.log(selectedSpotifyObject)}
+        {Object.keys(selectedSpotifyObject).length !== 0 && (
+          <p>
+            {selectedSpotifyObject.artists[0].id === artistSpotifyId
+              ? "Match"
+              : "No Match"}
+          </p>
+        )}
         <input type='submit' value='Add Song' />
       </form>
     </div>

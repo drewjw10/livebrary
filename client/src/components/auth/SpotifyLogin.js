@@ -27,7 +27,6 @@ window.location.hash = ""; */
 const SpotifyLogin = () => {
   const [token, setToken] = useState("");
   const [params, setParams] = useState();
-  const spotifyToken = useSelector((state) => state.spotify.token);
 
   const dispatch = useDispatch();
 
@@ -35,7 +34,6 @@ const SpotifyLogin = () => {
     let _token = window.location.href.split("=")[1];
     if (_token) {
       setToken(_token);
-      dispatch(setSpotifyToken(_token));
       localStorage.setItem("spotify-auth-token", _token);
     }
   }, []);

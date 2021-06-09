@@ -18,7 +18,6 @@ const CreateArtist = () => {
   const spotifyArtists = useSelector((state) => state.spotify.artists);
   const [spotifySearched, setSpotifySearched] = useState(true);
   const [selectedSpotifyObject, setSelectedSpotifyObject] = useState({});
-  const token = useSelector((state) => state.spotify.token);
   const dispatch = useDispatch();
 
   const onChange = (e) => {
@@ -38,7 +37,7 @@ const CreateArtist = () => {
     dispatch(clearSpotifySearch());
     setSpotifySearched(true);
     console.log(e);
-    dispatch(searchSpotify(spotifyName, token, "artist"));
+    dispatch(searchSpotify(spotifyName, "artist"));
   };
 
   function populateSelectFromNewSearch() {
