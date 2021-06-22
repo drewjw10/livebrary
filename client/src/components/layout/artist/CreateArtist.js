@@ -69,6 +69,7 @@ const CreateArtist = () => {
         <label>Search for Spotify Artist: </label>
 
         <div className='spotify-search'>
+          <div className='spotify-search-input'>
           <input
             type='text'
             name='spotifyName'
@@ -79,8 +80,7 @@ const CreateArtist = () => {
           <button onClick={(e) => searchSpotifyHandler(e)}>
             Search Spotify
           </button>
-        </div>
-        <div>
+          </div>
           {spotifyArtists.length !== 0 && (
             <Fragment>
               <label>Select artist name: </label>
@@ -102,6 +102,7 @@ const CreateArtist = () => {
             </Fragment>
           )}
         </div>
+
 
         <input type='submit' value='Create Artist' />
       </form>

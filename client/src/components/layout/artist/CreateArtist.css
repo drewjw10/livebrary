@@ -11,7 +11,12 @@
   color: black;
 }
 
-.spotify-search {
+.create-artist__wrapper .spotify-search {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-artist__wrapper .spotify-search-input {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,7 +34,15 @@
   margin-left: 1rem;
 }
 
-.spotify-search button {
+.create-artist__wrapper select {
+  flex-basis: 60%;
+  width: 60%;
+  padding: 10px;
+  margin: 10px 20px;
+  border-radius: 7px;
+}
+
+.create-artist__wrapper .spotify-search button {
   flex-basis: 30%;
   top: 0;
   bottom: 0;

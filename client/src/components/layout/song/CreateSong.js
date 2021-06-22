@@ -80,6 +80,8 @@ const CreateSong = (props) => {
       <form className='create-song__form' onSubmit={(e) => onSubmit(e)}>
         <label>Search for Spotify Song:</label>
         <div className='spotify-search'>
+        <div className='spotify-search-input'>
+
           <input
             type='text'
             name='spotifyName'
@@ -90,7 +92,7 @@ const CreateSong = (props) => {
           <button onClick={(e) => searchSpotifyHandler(e)}>
             Search Spotify
           </button>
-        </div>
+          </div>
         {spotifySongs.length !== 0 && (
           <Fragment>
             <label>Select song name: </label>
@@ -110,13 +112,18 @@ const CreateSong = (props) => {
             {spotifySearched && populateSelectFromNewSearch()}
           </Fragment>
         )}
+        <div className="idMatch">
         {Object.keys(selectedSpotifyObject).length !== 0 && (
-          <p>
+          <p className={selectedSpotifyObject.artists[0].id === artistSpotifyId
+            ? "match"
+            : "mismatch"}>
             {selectedSpotifyObject.artists[0].id === artistSpotifyId
-              ? "Match"
-              : "No Match"}
+              ? "The artist of this song is correct"
+              : "The artist of this song is not correct"}
           </p>
         )}
+        </div>
+        </div>
         <input type='submit' value='Add Song' />
       </form>
     </div>

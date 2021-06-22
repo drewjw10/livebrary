@@ -7,12 +7,18 @@
   width: 100%;
 }
 
-.spotify-search {
+.create-song__wrapper .spotify-search {
   display: flex;
   align-content: center;
+  flex-direction: column;
 }
 
-.spotify-search input[type="text"] {
+.create-song__wrapper .spotify-search-input {
+  display: flex;
+}
+
+.create-song__wrapper .spotify-search input[type="text"] {
+  margin-left: 20px;
   flex-basis: 50%;
 }
 
@@ -27,6 +33,27 @@ button {
   left: 1rem;
 }
 
+.create-song__wrapper select {
+  flex-basis: 60%;
+  width: 60%;
+  padding: 10px;
+  margin: 10px 20px;
+  border-radius: 7px;
+}
+
 .create-song__wrapper input[type="submit"] {
   margin-left: 1rem;
+}
+
+.idMatch p {
+  font-weight: bold;
+  text-align: center;
+}
+
+.match {
+  color: green;
+}
+
+.mismatch {
+  color: red;
 }
