@@ -23,7 +23,7 @@ const CreateSong = (props) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(`Artist Spotify Id: ${artistSpotifyId}`);
+    if (artistSpotifyId === selectedSpotifyObject.artists[0].id){
     dispatch(
       createSong(
         selectedSpotifyObject.name,
@@ -31,6 +31,7 @@ const CreateSong = (props) => {
         selectedSpotifyObject.id
       )
     );
+  }
   };
 
   const onChange = (e) => {
@@ -118,8 +119,8 @@ const CreateSong = (props) => {
             ? "match"
             : "mismatch"}>
             {selectedSpotifyObject.artists[0].id === artistSpotifyId
-              ? "The artist of this song is correct"
-              : "The artist of this song is not correct"}
+              ? "Artist matches"
+              : "This artist does not match!"}
           </p>
         )}
         </div>
