@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { votePerformance } from "../../../actions/performances";
 import { useSelector, useDispatch } from "react-redux";
 import smiley from "./smiley.png";
@@ -7,7 +7,7 @@ import Spinner from "../Spinner";
 
 const VoteBlock = (props) => {
   let { performance, index, performanceVotes, setPerformanceVotes } = props;
-
+  console.log(props);
   const [userVote, setUserVote] = useState(performance.userVote);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const VoteBlock = (props) => {
   return (
     <Fragment>
       <img
-        id='upvote'
+        id="upvote"
         src={smiley}
         onClick={(e) =>
           vote(
@@ -35,7 +35,7 @@ const VoteBlock = (props) => {
       <p> {performanceVotes[index]} Votes</p>
 
       <img
-        id='downvote'
+        id="downvote"
         src={frowny}
         onClick={(e) =>
           vote(
